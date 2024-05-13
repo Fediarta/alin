@@ -192,6 +192,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -402,7 +403,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sifat-8-untuk-mencari-determinan-dari-hasil-perkalian-matrix-n-dengan-matrix-o-adalah-dengan-mengalikan-determinan-matrix-n-dan-o-contoh-det-n-10-det-o-3-maka-det-p-adalah-30">Sifat 8 : untuk mencari determinan dari Hasil perkalian matrix N dengan matrix O adalah dengan mengalikan determinan matrix N dan O contoh (det N = 10  , det O = 3 , maka det P adalah 30 )</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-determinan-dengan-ekspansi-matriks-ordo-4x4">Menghitung Determinan dengan Ekspansi matriks ordo 4x4</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-matriks-dengan-kofaktor">DETERMINAN MATRIKS DENGAN KOFAKTOR</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dari-matriks-buat-kofaktor-terlebih-dahulu">dari matriks buat kofaktor terlebih dahulu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-11">mencari kofaktor 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-12">mencari kofaktor 12</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-13">mencari kofaktor 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-14">mencari kofaktor 14</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">hasil akhir</a></li>
 </ul>
 
             </nav>
@@ -935,116 +946,154 @@ Determinan Matrix O :
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="menghitung-determinan-dengan-ekspansi-matriks-ordo-4x4">
-<h1>Menghitung Determinan dengan Ekspansi matriks ordo 4x4<a class="headerlink" href="#menghitung-determinan-dengan-ekspansi-matriks-ordo-4x4" title="Link to this heading">#</a></h1>
-<p>Untuk menemukan hasil determinan matriks, menggunakan metode ekspansi kofaktor. Berikut adalah contoh langkah-langkahnya:</p>
-<ol class="arabic simple">
-<li><p><strong>Pilih baris atau kolom</strong>: Pilih salah satu baris atau kolom dari matriks dan gunakan sebagai referensi untuk menghitung determinan. Misalnya, kita pilih baris ke-1.</p></li>
-<li><p><strong>Hitung kofaktor</strong>: Hitung kofaktor elemen-elemen pada baris yang dipilih. Kofaktor elemen $<span class="math notranslate nohighlight">\(ij\)</span><span class="math notranslate nohighlight">\( didefinisikan sebagai \)</span><span class="math notranslate nohighlight">\(C_{ij} = (-1)^{(i + j)} M_{ij}\)</span><span class="math notranslate nohighlight">\(, di mana \)</span><span class="math notranslate nohighlight">\(M_{ij}\)</span><span class="math notranslate nohighlight">\( adalah minor elemen \)</span><span class="math notranslate nohighlight">\(ij\)</span>$.</p></li>
-<li><p><strong>Hitung minor</strong>: Hitung minor elemen-elemen pada baris yang dipilih. Minor elemen $<span class="math notranslate nohighlight">\(ij\)</span><span class="math notranslate nohighlight">\( adalah matriks yang dihasilkan dengan menghilangkan baris ke-\)</span><span class="math notranslate nohighlight">\(i\)</span><span class="math notranslate nohighlight">\( dan kolom ke-\)</span><span class="math notranslate nohighlight">\(j\)</span>$ dari matriks asli.</p></li>
-<li><p><strong>Hitung perkalian kofaktor dengan minor</strong>: Hitung perkalian kofaktor elemen $<span class="math notranslate nohighlight">\(ij\)</span><span class="math notranslate nohighlight">\( dengan minor elemen \)</span><span class="math notranslate nohighlight">\(ij\)</span>$. Hasil perkalian ini akan menjadi bagian dari rumus determinan.</p></li>
-<li><p><strong>Jumlahkan hasil perkalian</strong>: Jumlahkan hasil perkalian kofaktor dengan minor elemen-elemen pada baris yang dipilih. Hasil akhir ini adalah determinan matriks.</p></li>
-</ol>
-<p>D</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
-<span class="n">det</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4 3 1 6]
- [2 3 2 1]
- [3 2 1 1]
- [2 5 1 4]]
--52.000000000000036
-</pre></div>
-</div>
-</div>
-</div>
-<p><span class="math notranslate nohighlight">\(\left|\begin{matrix}
-4 &amp; 3 &amp; 1 &amp; 6 \\
-2 &amp; 3 &amp; 2 &amp; 1 \\
-3 &amp; 2 &amp; 1 &amp; 1 \\
+<section class="tex2jax_ignore mathjax_ignore" id="determinan-matriks-dengan-kofaktor">
+<h1>DETERMINAN MATRIKS DENGAN KOFAKTOR<a class="headerlink" href="#determinan-matriks-dengan-kofaktor" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(Q=\begin{bmatrix}
+4 &amp; 3 &amp; 1 &amp; 6\\
+2 &amp; 3 &amp; 2 &amp; 1\\
+3 &amp; 2 &amp; 1 &amp; 1\\
 2 &amp; 5 &amp; 1 &amp; 4
-\end{matrix}\right|=\)</span></p>
-<p>\begin{align*}
-&amp; (-1)^{1+1} \cdot 4 \cdot \left| \begin{matrix}
-3 &amp; 2 &amp; 1 \
-2 &amp; 1 &amp; 1 \
+\end{bmatrix} Rumus-determinan= A11 × K11 + A12 × K12 + A13 × K13 + A14 × K14 \)</span></p>
+<section id="dari-matriks-buat-kofaktor-terlebih-dahulu">
+<h2>dari matriks buat kofaktor terlebih dahulu<a class="headerlink" href="#dari-matriks-buat-kofaktor-terlebih-dahulu" title="Link to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\( Kij= (-1)^i+j | Mij | \)</span></p>
+<ul class="simple">
+<li><p>arti dari rumus diatas adalah baris ke i dan kolom ke j dari matriks akan dihilangkan</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(Q=+4\begin{bmatrix}
+3 &amp; 2 &amp; 1 \\
+2 &amp; 1 &amp; 1 \\
 5 &amp; 1 &amp; 4
-\end{matrix} \right| \
-&amp;+ (-1)^{1+2} \cdot 3 \cdot \left| \begin{matrix}
-2 &amp;  2 &amp; 1 \
-3 &amp; 1 &amp; 1 \
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(-3\begin{bmatrix}
+2 &amp; 2 &amp; 1 \\
+3 &amp; 1 &amp; 1 \\
 2 &amp; 1 &amp; 4
-\end{matrix} \right| \
-&amp;+ (-1)^{1+3} \cdot 1 \cdot \left| \begin{matrix}
-2 &amp; 3 &amp;  1 \
-3 &amp; 2 &amp;  1 \
-2 &amp; 5 &amp; 4 \
-\end{matrix} \right| \
-&amp;+ (-1)^{1+4} \cdot 6 \cdot \left| \begin{matrix}
-2 &amp; 3 &amp; 2  \
-3 &amp; 2 &amp; 1  \
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+1\begin{bmatrix}
+2 &amp; 3 &amp; 1 \\
+3 &amp; 2 &amp; 1 \\
+2 &amp; 5 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(-6\begin{bmatrix}
+2 &amp; 3 &amp; 2 \\
+3 &amp; 2 &amp; 1 \\
 2 &amp; 5 &amp; 1
-\end{matrix} \right| \
-&amp;= 12 \cdot \left| \begin{matrix}
-1 &amp; 1 \
-1 &amp; 4
-\end{matrix} \right| - 8 \cdot \left| \begin{matrix}
-2 &amp; 1 \
-5 &amp; 4
-\end{matrix} \right| + 4 \cdot \left| \begin{matrix}
-2 &amp; 1 \
-5 &amp; 1
-\end{matrix} \right| - 6 \cdot \left| \begin{matrix}
-1 &amp; 1 \
-1 &amp; 4
-\end{matrix} \right| \
-&amp;+ 6 \cdot \left| \begin{matrix}
-3 &amp; 1 \
-2 &amp; 4
-\end{matrix} \right| - 3 \cdot \left| \begin{matrix}
-3 &amp; 1 \
-2 &amp; 1
-\end{matrix} \right| + 2 \cdot \left| \begin{matrix}
-2 &amp; 1 \
-5 &amp; 4
-\end{matrix} \right| - 3 \cdot \left| \begin{matrix}
-3 &amp; 1 \
-2 &amp; 4
-\end{matrix} \right| \
-&amp;+ 1 \cdot \left| \begin{matrix}
-3 &amp; 2 \
-2 &amp; 5
-\end{matrix} \right| - 12 \cdot \left| \begin{matrix}
-2 &amp; 1 \
-5 &amp; 1
-\end{matrix} \right| + 18 \cdot \left| \begin{matrix}
-3 &amp; 1 \
-2 &amp; 1
-\end{matrix} \right| - 12 \cdot \left| \begin{matrix}
-3 &amp; 2 \
-2 &amp; 5
-\end{matrix} \right| \
-&amp;= -52
-\end{align*}</p>
-<p>Hasil -52 didapatkan dengan menggunakan aturan ekspansi kofaktor untuk mengevaluasi determinan matriks 4x4 yang diberikan. Pertama, kita memilih baris atau kolom tertentu untuk melakukan ekspansi kofaktor. Dalam kasus ini bisa memilih baris pertama.</p>
-<p>Kemudian, menghitung determinan sebagai jumlah dari produk elemen-elemen matriks dengan kofaktor. Setiap elemen dikalikan dengan kofaktornya, yang diperoleh dengan mengalikan koefisien (-1)^(i+j) dengan determinan matriks minor yang dihasilkan setelah menghapus baris dan kolom yang mengandung elemen tersebut.</p>
-<p>Dalam ekspresi tersebut, setiap suku adalah produk dari elemen matriks asli dengan kofaktornya, kemudian dikurangi atau ditambahkan berdasarkan tanda kofaktor (-1)^(i+j).</p>
-<p>Kita dapat menyusunnya sebagai berikut:</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(12 \cdot \left| \begin{matrix} 1 &amp; 4 \\ 5 &amp; 1 \end{matrix} \right|\)</span> (dari elemen 4)</p></li>
-<li><p><span class="math notranslate nohighlight">\(-8 \cdot \left| \begin{matrix} 2 &amp; 2 \\ 2 &amp; 1 \end{matrix} \right|\)</span> (dari elemen 3)</p></li>
-<li><p><span class="math notranslate nohighlight">\(4 \cdot \left| \begin{matrix} 2 &amp; 2 \\ 2 &amp; 5 \end{matrix} \right|\)</span> (dari elemen 1)</p></li>
-<li><p><span class="math notranslate nohighlight">\(-6 \cdot \left| \begin{matrix} 1 &amp; 1 \\ 5 &amp; 1 \end{matrix} \right|\)</span> (dari elemen 6)</p></li>
-</ol>
-<p>Setelah menghitung nilai dari setiap sub-determinan bisa memasukkannya ke dalam ekspresi tersebut dan menjumlahkannya. Dengan demikian mendapatkan hasil akhir -52.</p>
+\end{bmatrix} \)</span></p>
+<section id="mencari-kofaktor-11">
+<h3>mencari kofaktor 11<a class="headerlink" href="#mencari-kofaktor-11" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+3 &amp; 2 &amp; 1 \\
+2 &amp; 1 &amp; 1 \\
+5 &amp; 1 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+3\begin{bmatrix}
+ 1 &amp; 1 \\
+ 1 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(-2\begin{bmatrix}
+ 2 &amp; 1 \\
+ 5 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+1\begin{bmatrix}
+ 2 &amp; 1 \\
+ 5 &amp; 1
+\end{bmatrix} \)</span></p>
+<p><span class="math notranslate nohighlight">\( Rumus-determinan= A11 × K11 + A12 × K12 + A13 × K13 + A14 × K14 \)</span>
+<span class="math notranslate nohighlight">\( maka = +3 (1 × 4 - 1 × 1)+ (-2) (2 × 4 - 1 × 5)+ 1 (2 × 1 - 1 × 5) \)</span>
+<span class="math notranslate nohighlight">\( = +3(3) + (-2)(3) + 1(-3) \)</span>
+<span class="math notranslate nohighlight">\( = 9 + (-6) + (-3) \)</span>
+<span class="math notranslate nohighlight">\( =0 \)</span></p>
+</section>
+<section id="mencari-kofaktor-12">
+<h3>mencari kofaktor 12<a class="headerlink" href="#mencari-kofaktor-12" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+2 &amp; 2 &amp; 1 \\
+3 &amp; 1 &amp; 1 \\
+2 &amp; 1 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+2\begin{bmatrix}
+ 1 &amp; 1 \\
+ 1 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(-2\begin{bmatrix}
+ 3 &amp; 1 \\
+ 2 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+1\begin{bmatrix}
+ 3 &amp; 1 \\
+ 2 &amp; 1
+\end{bmatrix} \)</span></p>
+<p><span class="math notranslate nohighlight">\( Rumus-determinan= A11 × K11 + A12 × K12 + A13 × K13 + A14 × K14 \)</span>
+<span class="math notranslate nohighlight">\( maka = +2 (1 × 4 - 1 × 1)+ (-2) (3 × 4 - 1 × 2)+ 1 (3 × 1 - 1 × 2) \)</span>
+<span class="math notranslate nohighlight">\( = +2(3) + (-2)(10) + 1(1) \)</span>
+<span class="math notranslate nohighlight">\( = 6 + (-20) + (1) \)</span>
+<span class="math notranslate nohighlight">\( = -13 \)</span></p>
+</section>
+<section id="mencari-kofaktor-13">
+<h3>mencari kofaktor 13<a class="headerlink" href="#mencari-kofaktor-13" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+2 &amp; 3 &amp; 1 \\
+3 &amp; 2 &amp; 1 \\
+2 &amp; 5 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+2\begin{bmatrix}
+ 2 &amp; 1 \\
+ 5 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(-3\begin{bmatrix}
+ 3 &amp; 1 \\
+ 2 &amp; 4
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+1\begin{bmatrix}
+ 3 &amp; 2 \\
+ 2 &amp; 5
+\end{bmatrix} \)</span></p>
+<p><span class="math notranslate nohighlight">\( Rumus-determinan= A11 × K11 + A12 × K12 + A13 × K13 + A14 × K14 \)</span>
+<span class="math notranslate nohighlight">\( maka = +2 (2 × 4 - 1 × 5)+ (-3) (3 × 4 - 1 × 2)+ 1 (3 × 5 - 2 × 2) \)</span>
+<span class="math notranslate nohighlight">\( = +2(3) + (-3)(10) + 1(11) \)</span>
+<span class="math notranslate nohighlight">\( = 6 + (-30) + 11 \)</span>
+<span class="math notranslate nohighlight">\( = -13 \)</span></p>
+</section>
+<section id="mencari-kofaktor-14">
+<h3>mencari kofaktor 14<a class="headerlink" href="#mencari-kofaktor-14" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+2 &amp; 3 &amp; 2 \\
+3 &amp; 2 &amp; 1 \\
+2 &amp; 5 &amp; 1
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+2\begin{bmatrix}
+ 2 &amp; 1 \\
+ 5 &amp; 1
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(-3\begin{bmatrix}
+ 3 &amp; 1 \\
+ 2 &amp; 1
+\end{bmatrix} \)</span>
+<span class="math notranslate nohighlight">\(+2\begin{bmatrix}
+ 3 &amp; 2 \\
+ 2 &amp; 5
+\end{bmatrix} \)</span></p>
+<p><span class="math notranslate nohighlight">\( Rumus-determinan= A11 × K11 + A12 × K12 + A13 × K13 + A14 × K14 \)</span>
+<span class="math notranslate nohighlight">\( maka = +2 (2 × 1 - 1 × 5)+ (-3) (3 × 1 - 1 × 2)+ 2 (3 × 5 - 2 × 2) \)</span>
+<span class="math notranslate nohighlight">\( = +2(-3) + (-3)(1) + 2(11) \)</span>
+<span class="math notranslate nohighlight">\( = (-6) + (-3) + 22 \)</span>
+<span class="math notranslate nohighlight">\( = 13 \)</span></p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="hasil-akhir">
+<h1>hasil akhir<a class="headerlink" href="#hasil-akhir" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(Q=\begin{bmatrix}
+4 &amp; 3 &amp; 1 &amp; 6\\
+2 &amp; 3 &amp; 2 &amp; 1\\
+3 &amp; 2 &amp; 1 &amp; 1\\
+2 &amp; 5 &amp; 1 &amp; 4
+\end{bmatrix} Rumus-determinan= A11 × K11 + A12 × K12 + A13 × K13 + A14 × K14 \)</span></p>
+<p><span class="math notranslate nohighlight">\( det Q = 4 × (0) + (-3) ×(-13) + 1 × (-13) + -(6) × (-13) \)</span>
+<span class="math notranslate nohighlight">\( = 0 + 39 + (-13) + (-78) \)</span>
+<span class="math notranslate nohighlight">\( = 39 + (-91)\)</span>
+<span class="math notranslate nohighlight">\( = - 52 \)</span></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1125,7 +1174,17 @@ Determinan Matrix O :
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sifat-8-untuk-mencari-determinan-dari-hasil-perkalian-matrix-n-dengan-matrix-o-adalah-dengan-mengalikan-determinan-matrix-n-dan-o-contoh-det-n-10-det-o-3-maka-det-p-adalah-30">Sifat 8 : untuk mencari determinan dari Hasil perkalian matrix N dengan matrix O adalah dengan mengalikan determinan matrix N dan O contoh (det N = 10  , det O = 3 , maka det P adalah 30 )</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-determinan-dengan-ekspansi-matriks-ordo-4x4">Menghitung Determinan dengan Ekspansi matriks ordo 4x4</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-matriks-dengan-kofaktor">DETERMINAN MATRIKS DENGAN KOFAKTOR</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dari-matriks-buat-kofaktor-terlebih-dahulu">dari matriks buat kofaktor terlebih dahulu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-11">mencari kofaktor 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-12">mencari kofaktor 12</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-13">mencari kofaktor 13</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-kofaktor-14">mencari kofaktor 14</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">hasil akhir</a></li>
 </ul>
 
   </nav></div>
