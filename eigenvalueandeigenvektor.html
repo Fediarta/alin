@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Konsep Eigen value and Eigen vektor &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'eigenvalueandeigenvektor';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sistemlinier.html">Tugas 1</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Aljabar.html">Aljabar Matrik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DETERMINAN.html">DETERMINAN</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Feigenvalueandeigenvektor.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/eigenvalueandeigenvektor.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Konsep Eigen value and Eigen vektor</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Konsep Eigen value and Eigen vektor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-konsep-eigen-value">Penjelasan Konsep Eigen value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jika-i-a-0-memiliki-solusi-tidak-nol-maka-haruslah">jika (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0 memiliki solusi tidak-nol , maka haruslah</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-menentukan-nilai-eigen-dan-vektor-eigen-dari-suatu-matriks">contoh menentukan nilai eigen dan vektor eigen dari suatu matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-menyelesaikan-eigen-value-dan-aigen-vektor-dengan-library-numpy">contoh menyelesaikan eigen value dan aigen vektor dengan library numpy</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dari-code-yang-dikirim-hanya-mengeluaran-matriks-dari-proses-tsb">implementasi dari code yang dikirim (hanya mengeluaran matriks dari proses tsb)</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="konsep-eigen-value-and-eigen-vektor">
+<h1>Konsep Eigen value and Eigen vektor<a class="headerlink" href="#konsep-eigen-value-and-eigen-vektor" title="Link to this heading">#</a></h1>
+<section id="penjelasan-konsep-eigen-value">
+<h2>Penjelasan Konsep Eigen value<a class="headerlink" href="#penjelasan-konsep-eigen-value" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>matriks A dengan ukuran <span class="math notranslate nohighlight">\(n × n \)</span> maka vektor tidak-nol x di <span class="math notranslate nohighlight">\(R^n \)</span> disebut <em>Vektor eigen</em> dari A jika Ax sama dengan perkalian suatu skalar <span class="math notranslate nohighlight">\(\lambda\)</span> dengan <em>x</em> , yaitu</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\( Ax = \lambda x\)</span></p>
+<p>Ax : vektor x setelah transformasi linier</p>
+<p><span class="math notranslate nohighlight">\( λx \)</span>: perkalian bilangan riel dari x , i.e. peregangan dari vektor x. Transformasi linier untuk eigenvektor menghasilkan peregangan vektor sebanyak eigen value kali.</p>
+<p>skalar <span class="math notranslate nohighlight">\(λ\)</span> disebut <em>nilai eigen</em> dari A , dan <em>x</em> dinamakan vektor eigen yang berkoresponden dengan  <span class="math notranslate nohighlight">\(λ\)</span> / nilai eigen</p>
+<p><em>nb: vektor nol tidak bisa menjadi vektor eigen meskipun A0 = <span class="math notranslate nohighlight">\(λ0\)</span>,namun <span class="math notranslate nohighlight">\(λ\)</span>= 0 bisa menjadi nilai eigen</em></p>
+</section>
+<section id="jika-i-a-0-memiliki-solusi-tidak-nol-maka-haruslah">
+<h2>jika (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0 memiliki solusi tidak-nol , maka haruslah<a class="headerlink" href="#jika-i-a-0-memiliki-solusi-tidak-nol-maka-haruslah" title="Link to this heading">#</a></h2>
+<p><em>det (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0</em></p>
+<ul class="simple">
+<li><p>persamaan det (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0 disebut persamaan karakteristik dari matriks A dan akar-akar persamaan tersebut , yaitu <span class="math notranslate nohighlight">\(λ\)</span>,dinamakan akar-akar karakteristik atau nilai-nilai eigen .</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="contoh-menentukan-nilai-eigen-dan-vektor-eigen-dari-suatu-matriks">
+<h1>contoh menentukan nilai eigen dan vektor eigen dari suatu matriks<a class="headerlink" href="#contoh-menentukan-nilai-eigen-dan-vektor-eigen-dari-suatu-matriks" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(A=\begin{bmatrix}
+3 &amp; 0 \\
+8 &amp; 1 \\
+\end{bmatrix} \)</span></p>
+<p>menentukan nilai eigen dengan</p>
+<p><em>det (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0</em></p>
+<p><em><span class="math notranslate nohighlight">\(λ\)</span>I-A=<span class="math notranslate nohighlight">\(\lambda\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1 \\
+\end{bmatrix} \)</span> -</em>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+3 &amp; 0 \\
+8 &amp; 1 \\
+\end{bmatrix} =\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+λ &amp; 0 \\
+0 &amp; λ \\
+\end{bmatrix} \)</span> -
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+3 &amp; 0 \\
+8 &amp; 1 \\
+\end{bmatrix} =\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+λ-3 &amp; 0 \\
+-8 &amp; λ+1 \\
+\end{bmatrix} \)</span></p>
+<p><em>det (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0</em> ==&gt;
+<span class="math notranslate nohighlight">\(\begin{vmatrix}
+λ-3 &amp; 0 \\
+-8 &amp; λ+1 \\
+\end{vmatrix}= 0 ==&gt;\)</span></p>
+<p>(λ-3)(λ+1)=0 ==&gt; persamaan karakteristik
+==&gt; λ=3 dan λ=-1</p>
+<p>jadi,nilai-nilai eigen dari matriks A <span class="math notranslate nohighlight">\(λ\)</span>=3 dan <span class="math notranslate nohighlight">\(λ\)</span>=-1</p>
+<ul class="simple">
+<li><p>vektor eigen
+(<span class="math notranslate nohighlight">\(λ\)</span>.I-A)x = 0 ==&gt;</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+λ-3 &amp; 0 \\
+-8 &amp; λ+1 \\
+\end{bmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+x1 \\
+x2 \\
+\end{bmatrix}=\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}\)</span></p>
+<p>untuk <span class="math notranslate nohighlight">\(λ\)</span>=3 ==&gt;
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+0 &amp; 0 \\
+-8 &amp; 4 \\
+\end{bmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+x1 \\
+x2 \\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}\)</span>
+==&gt; <span class="math notranslate nohighlight">\(-8x^1\)</span> + <span class="math notranslate nohighlight">\(4x^2\)</span>=0 ==&gt; <span class="math notranslate nohighlight">\(8x^1=4x^2= 1/2x^2\)</span></p>
+<p>==&gt; solusi <span class="math notranslate nohighlight">\(x^1=1/2t,x^2=t\)</span></p>
+<p>vektor eigen x =
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+x1 \\
+x2\\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+1/2t \\
+t\\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(t\begin{bmatrix}
+1/2 \\
+1\\
+\end{bmatrix}==&gt; membentuk ruang eigen\)</span></p>
+<p>jadi
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+1/2 \\
+1\\
+\end{bmatrix} adalah basis untuk ruang eigen dengan λ=3 \)</span></p>
+<p>untuk <span class="math notranslate nohighlight">\(λ=-1==&gt;\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+λ-3 &amp; 0 \\
+-8 &amp; λ+1 \\
+\end{bmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+x1 \\
+x2 \\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+-4 &amp; 0 \\
+-8 &amp; 0 \\
+\end{bmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+x1 \\
+x2 \\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix}\)</span>
+selesaikan dengan eliminasi gauss:
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+-4 &amp; 0 &amp; 0\\
+-8 &amp; 0 &amp; 0\\
+\end{bmatrix} R1/(-4)\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+-1 &amp; 0 &amp; 0\\
+-8 &amp; 0 &amp; 0\\
+\end{bmatrix}R2+8R1\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+-1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0\\
+\end{bmatrix}\)</span></p>
+<p>==&gt; solusi <span class="math notranslate nohighlight">\(x^1=0,x^2=t\)</span></p>
+<p>vektor-vektor eigen x=
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+x1 \\
+x2 \\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(\begin{bmatrix}
+0 \\
+t \\
+\end{bmatrix}=\)</span>
+<span class="math notranslate nohighlight">\(t\begin{bmatrix}
+0 \\
+1 \\
+\end{bmatrix} membentuk ruang eigen\)</span></p>
+<p>jadi ,
+<span class="math notranslate nohighlight">\(t\begin{bmatrix}
+0 \\
+1 \\
+\end{bmatrix} adalah basis untuk ruang eigen dengan λ=-1\)</span></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="contoh-menyelesaikan-eigen-value-dan-aigen-vektor-dengan-library-numpy">
+<h1>contoh menyelesaikan eigen value dan aigen vektor dengan library numpy<a class="headerlink" href="#contoh-menyelesaikan-eigen-value-dan-aigen-vektor-dengan-library-numpy" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eig</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">eig</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E-value:&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E-vector&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 4]
+ [2 3]]
+E-value: [-1.  5.]
+E-vector [[-0.89442719 -0.70710678]
+ [ 0.4472136  -0.70710678]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eig</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">eig</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E-value:&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E-vector&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[3 0]
+ [8 1]]
+E-value: [1. 3.]
+E-vector [[0.         0.24253563]
+ [1.         0.9701425 ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eig</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="n">eig</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E-value:&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;E-vector&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0  0 -4]
+ [ 2  4  2]
+ [ 2  0  6]]
+E-value: [4. 2. 4.]
+E-vector [[ 0.         -0.81649658  0.70710678]
+ [ 1.          0.40824829  0.        ]
+ [ 0.          0.40824829 -0.70710678]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1">#array([0.+1.j, 0.-1.j])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.+0.j,  5.+0.j])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="implementasi-dari-code-yang-dikirim-hanya-mengeluaran-matriks-dari-proses-tsb">
+<h1>implementasi dari code yang dikirim (hanya mengeluaran matriks dari proses tsb)<a class="headerlink" href="#implementasi-dari-code-yang-dikirim-hanya-mengeluaran-matriks-dari-proses-tsb" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">pcaEVD</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="c1"># Center X and get covariance matrix C</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="n">X</span> <span class="o">-=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">C</span>  <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="nd">@X</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+
+
+    <span class="c1"># EVD</span>
+    <span class="n">e_vals</span><span class="p">,</span> <span class="n">e_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">e_vals</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">e_vals</span> <span class="o">=</span> <span class="n">e_vals</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">e_vecs</span> <span class="o">=</span> <span class="n">e_vecs</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
+
+
+    <span class="c1"># Return principal compnents and eigenvalues to calculate the portion of sample variance explained</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">e_vecs</span><span class="p">),</span> <span class="n">e_vals</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pcaSVD</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="c1"># Center X and get covariance matrix C</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">X</span> <span class="o">-=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># SVD</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+
+
+    <span class="c1"># Return principal compnents and eigenvalues to calculate the portion of sample variance explained</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">vt</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="p">(</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sigma matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">V^T matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>U matrix:
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-6-700ef2fde94c&gt;</span> in <span class="ni">&lt;cell line: 16&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> 
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U matrix:&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sigma matrix:&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;u&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+
+<span class="n">X_</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="c1"># Memuat dataset Iris</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X=</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Y=</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Sentralisasi data</span>
+<span class="n">X_</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sentralisasi data=</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">X_</span><span class="p">)</span>
+
+<span class="c1"># SVD</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Komponen utama</span>
+<span class="n">principal_components</span> <span class="o">=</span> <span class="n">X_</span> <span class="o">@</span> <span class="n">vt</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Nilai eigen</span>
+<span class="n">eigenvalues</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Mencetak hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Principal Components:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">principal_components</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvalues</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>X=
+ [[5.1 3.5 1.4 0.2]
+ [4.9 3.  1.4 0.2]
+ [4.7 3.2 1.3 0.2]
+ [4.6 3.1 1.5 0.2]
+ [5.  3.6 1.4 0.2]
+ [5.4 3.9 1.7 0.4]
+ [4.6 3.4 1.4 0.3]
+ [5.  3.4 1.5 0.2]
+ [4.4 2.9 1.4 0.2]
+ [4.9 3.1 1.5 0.1]
+ [5.4 3.7 1.5 0.2]
+ [4.8 3.4 1.6 0.2]
+ [4.8 3.  1.4 0.1]
+ [4.3 3.  1.1 0.1]
+ [5.8 4.  1.2 0.2]
+ [5.7 4.4 1.5 0.4]
+ [5.4 3.9 1.3 0.4]
+ [5.1 3.5 1.4 0.3]
+ [5.7 3.8 1.7 0.3]
+ [5.1 3.8 1.5 0.3]
+ [5.4 3.4 1.7 0.2]
+ [5.1 3.7 1.5 0.4]
+ [4.6 3.6 1.  0.2]
+ [5.1 3.3 1.7 0.5]
+ [4.8 3.4 1.9 0.2]
+ [5.  3.  1.6 0.2]
+ [5.  3.4 1.6 0.4]
+ [5.2 3.5 1.5 0.2]
+ [5.2 3.4 1.4 0.2]
+ [4.7 3.2 1.6 0.2]
+ [4.8 3.1 1.6 0.2]
+ [5.4 3.4 1.5 0.4]
+ [5.2 4.1 1.5 0.1]
+ [5.5 4.2 1.4 0.2]
+ [4.9 3.1 1.5 0.2]
+ [5.  3.2 1.2 0.2]
+ [5.5 3.5 1.3 0.2]
+ [4.9 3.6 1.4 0.1]
+ [4.4 3.  1.3 0.2]
+ [5.1 3.4 1.5 0.2]
+ [5.  3.5 1.3 0.3]
+ [4.5 2.3 1.3 0.3]
+ [4.4 3.2 1.3 0.2]
+ [5.  3.5 1.6 0.6]
+ [5.1 3.8 1.9 0.4]
+ [4.8 3.  1.4 0.3]
+ [5.1 3.8 1.6 0.2]
+ [4.6 3.2 1.4 0.2]
+ [5.3 3.7 1.5 0.2]
+ [5.  3.3 1.4 0.2]
+ [7.  3.2 4.7 1.4]
+ [6.4 3.2 4.5 1.5]
+ [6.9 3.1 4.9 1.5]
+ [5.5 2.3 4.  1.3]
+ [6.5 2.8 4.6 1.5]
+ [5.7 2.8 4.5 1.3]
+ [6.3 3.3 4.7 1.6]
+ [4.9 2.4 3.3 1. ]
+ [6.6 2.9 4.6 1.3]
+ [5.2 2.7 3.9 1.4]
+ [5.  2.  3.5 1. ]
+ [5.9 3.  4.2 1.5]
+ [6.  2.2 4.  1. ]
+ [6.1 2.9 4.7 1.4]
+ [5.6 2.9 3.6 1.3]
+ [6.7 3.1 4.4 1.4]
+ [5.6 3.  4.5 1.5]
+ [5.8 2.7 4.1 1. ]
+ [6.2 2.2 4.5 1.5]
+ [5.6 2.5 3.9 1.1]
+ [5.9 3.2 4.8 1.8]
+ [6.1 2.8 4.  1.3]
+ [6.3 2.5 4.9 1.5]
+ [6.1 2.8 4.7 1.2]
+ [6.4 2.9 4.3 1.3]
+ [6.6 3.  4.4 1.4]
+ [6.8 2.8 4.8 1.4]
+ [6.7 3.  5.  1.7]
+ [6.  2.9 4.5 1.5]
+ [5.7 2.6 3.5 1. ]
+ [5.5 2.4 3.8 1.1]
+ [5.5 2.4 3.7 1. ]
+ [5.8 2.7 3.9 1.2]
+ [6.  2.7 5.1 1.6]
+ [5.4 3.  4.5 1.5]
+ [6.  3.4 4.5 1.6]
+ [6.7 3.1 4.7 1.5]
+ [6.3 2.3 4.4 1.3]
+ [5.6 3.  4.1 1.3]
+ [5.5 2.5 4.  1.3]
+ [5.5 2.6 4.4 1.2]
+ [6.1 3.  4.6 1.4]
+ [5.8 2.6 4.  1.2]
+ [5.  2.3 3.3 1. ]
+ [5.6 2.7 4.2 1.3]
+ [5.7 3.  4.2 1.2]
+ [5.7 2.9 4.2 1.3]
+ [6.2 2.9 4.3 1.3]
+ [5.1 2.5 3.  1.1]
+ [5.7 2.8 4.1 1.3]
+ [6.3 3.3 6.  2.5]
+ [5.8 2.7 5.1 1.9]
+ [7.1 3.  5.9 2.1]
+ [6.3 2.9 5.6 1.8]
+ [6.5 3.  5.8 2.2]
+ [7.6 3.  6.6 2.1]
+ [4.9 2.5 4.5 1.7]
+ [7.3 2.9 6.3 1.8]
+ [6.7 2.5 5.8 1.8]
+ [7.2 3.6 6.1 2.5]
+ [6.5 3.2 5.1 2. ]
+ [6.4 2.7 5.3 1.9]
+ [6.8 3.  5.5 2.1]
+ [5.7 2.5 5.  2. ]
+ [5.8 2.8 5.1 2.4]
+ [6.4 3.2 5.3 2.3]
+ [6.5 3.  5.5 1.8]
+ [7.7 3.8 6.7 2.2]
+ [7.7 2.6 6.9 2.3]
+ [6.  2.2 5.  1.5]
+ [6.9 3.2 5.7 2.3]
+ [5.6 2.8 4.9 2. ]
+ [7.7 2.8 6.7 2. ]
+ [6.3 2.7 4.9 1.8]
+ [6.7 3.3 5.7 2.1]
+ [7.2 3.2 6.  1.8]
+ [6.2 2.8 4.8 1.8]
+ [6.1 3.  4.9 1.8]
+ [6.4 2.8 5.6 2.1]
+ [7.2 3.  5.8 1.6]
+ [7.4 2.8 6.1 1.9]
+ [7.9 3.8 6.4 2. ]
+ [6.4 2.8 5.6 2.2]
+ [6.3 2.8 5.1 1.5]
+ [6.1 2.6 5.6 1.4]
+ [7.7 3.  6.1 2.3]
+ [6.3 3.4 5.6 2.4]
+ [6.4 3.1 5.5 1.8]
+ [6.  3.  4.8 1.8]
+ [6.9 3.1 5.4 2.1]
+ [6.7 3.1 5.6 2.4]
+ [6.9 3.1 5.1 2.3]
+ [5.8 2.7 5.1 1.9]
+ [6.8 3.2 5.9 2.3]
+ [6.7 3.3 5.7 2.5]
+ [6.7 3.  5.2 2.3]
+ [6.3 2.5 5.  1.9]
+ [6.5 3.  5.2 2. ]
+ [6.2 3.4 5.4 2.3]
+ [5.9 3.  5.1 1.8]]
+Y=
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]
+Sentralisasi data=
+ [[-7.43333333e-01  4.42666667e-01 -2.35800000e+00 -9.99333333e-01]
+ [-9.43333333e-01 -5.73333333e-02 -2.35800000e+00 -9.99333333e-01]
+ [-1.14333333e+00  1.42666667e-01 -2.45800000e+00 -9.99333333e-01]
+ [-1.24333333e+00  4.26666667e-02 -2.25800000e+00 -9.99333333e-01]
+ [-8.43333333e-01  5.42666667e-01 -2.35800000e+00 -9.99333333e-01]
+ [-4.43333333e-01  8.42666667e-01 -2.05800000e+00 -7.99333333e-01]
+ [-1.24333333e+00  3.42666667e-01 -2.35800000e+00 -8.99333333e-01]
+ [-8.43333333e-01  3.42666667e-01 -2.25800000e+00 -9.99333333e-01]
+ [-1.44333333e+00 -1.57333333e-01 -2.35800000e+00 -9.99333333e-01]
+ [-9.43333333e-01  4.26666667e-02 -2.25800000e+00 -1.09933333e+00]
+ [-4.43333333e-01  6.42666667e-01 -2.25800000e+00 -9.99333333e-01]
+ [-1.04333333e+00  3.42666667e-01 -2.15800000e+00 -9.99333333e-01]
+ [-1.04333333e+00 -5.73333333e-02 -2.35800000e+00 -1.09933333e+00]
+ [-1.54333333e+00 -5.73333333e-02 -2.65800000e+00 -1.09933333e+00]
+ [-4.33333333e-02  9.42666667e-01 -2.55800000e+00 -9.99333333e-01]
+ [-1.43333333e-01  1.34266667e+00 -2.25800000e+00 -7.99333333e-01]
+ [-4.43333333e-01  8.42666667e-01 -2.45800000e+00 -7.99333333e-01]
+ [-7.43333333e-01  4.42666667e-01 -2.35800000e+00 -8.99333333e-01]
+ [-1.43333333e-01  7.42666667e-01 -2.05800000e+00 -8.99333333e-01]
+ [-7.43333333e-01  7.42666667e-01 -2.25800000e+00 -8.99333333e-01]
+ [-4.43333333e-01  3.42666667e-01 -2.05800000e+00 -9.99333333e-01]
+ [-7.43333333e-01  6.42666667e-01 -2.25800000e+00 -7.99333333e-01]
+ [-1.24333333e+00  5.42666667e-01 -2.75800000e+00 -9.99333333e-01]
+ [-7.43333333e-01  2.42666667e-01 -2.05800000e+00 -6.99333333e-01]
+ [-1.04333333e+00  3.42666667e-01 -1.85800000e+00 -9.99333333e-01]
+ [-8.43333333e-01 -5.73333333e-02 -2.15800000e+00 -9.99333333e-01]
+ [-8.43333333e-01  3.42666667e-01 -2.15800000e+00 -7.99333333e-01]
+ [-6.43333333e-01  4.42666667e-01 -2.25800000e+00 -9.99333333e-01]
+ [-6.43333333e-01  3.42666667e-01 -2.35800000e+00 -9.99333333e-01]
+ [-1.14333333e+00  1.42666667e-01 -2.15800000e+00 -9.99333333e-01]
+ [-1.04333333e+00  4.26666667e-02 -2.15800000e+00 -9.99333333e-01]
+ [-4.43333333e-01  3.42666667e-01 -2.25800000e+00 -7.99333333e-01]
+ [-6.43333333e-01  1.04266667e+00 -2.25800000e+00 -1.09933333e+00]
+ [-3.43333333e-01  1.14266667e+00 -2.35800000e+00 -9.99333333e-01]
+ [-9.43333333e-01  4.26666667e-02 -2.25800000e+00 -9.99333333e-01]
+ [-8.43333333e-01  1.42666667e-01 -2.55800000e+00 -9.99333333e-01]
+ [-3.43333333e-01  4.42666667e-01 -2.45800000e+00 -9.99333333e-01]
+ [-9.43333333e-01  5.42666667e-01 -2.35800000e+00 -1.09933333e+00]
+ [-1.44333333e+00 -5.73333333e-02 -2.45800000e+00 -9.99333333e-01]
+ [-7.43333333e-01  3.42666667e-01 -2.25800000e+00 -9.99333333e-01]
+ [-8.43333333e-01  4.42666667e-01 -2.45800000e+00 -8.99333333e-01]
+ [-1.34333333e+00 -7.57333333e-01 -2.45800000e+00 -8.99333333e-01]
+ [-1.44333333e+00  1.42666667e-01 -2.45800000e+00 -9.99333333e-01]
+ [-8.43333333e-01  4.42666667e-01 -2.15800000e+00 -5.99333333e-01]
+ [-7.43333333e-01  7.42666667e-01 -1.85800000e+00 -7.99333333e-01]
+ [-1.04333333e+00 -5.73333333e-02 -2.35800000e+00 -8.99333333e-01]
+ [-7.43333333e-01  7.42666667e-01 -2.15800000e+00 -9.99333333e-01]
+ [-1.24333333e+00  1.42666667e-01 -2.35800000e+00 -9.99333333e-01]
+ [-5.43333333e-01  6.42666667e-01 -2.25800000e+00 -9.99333333e-01]
+ [-8.43333333e-01  2.42666667e-01 -2.35800000e+00 -9.99333333e-01]
+ [ 1.15666667e+00  1.42666667e-01  9.42000000e-01  2.00666667e-01]
+ [ 5.56666667e-01  1.42666667e-01  7.42000000e-01  3.00666667e-01]
+ [ 1.05666667e+00  4.26666667e-02  1.14200000e+00  3.00666667e-01]
+ [-3.43333333e-01 -7.57333333e-01  2.42000000e-01  1.00666667e-01]
+ [ 6.56666667e-01 -2.57333333e-01  8.42000000e-01  3.00666667e-01]
+ [-1.43333333e-01 -2.57333333e-01  7.42000000e-01  1.00666667e-01]
+ [ 4.56666667e-01  2.42666667e-01  9.42000000e-01  4.00666667e-01]
+ [-9.43333333e-01 -6.57333333e-01 -4.58000000e-01 -1.99333333e-01]
+ [ 7.56666667e-01 -1.57333333e-01  8.42000000e-01  1.00666667e-01]
+ [-6.43333333e-01 -3.57333333e-01  1.42000000e-01  2.00666667e-01]
+ [-8.43333333e-01 -1.05733333e+00 -2.58000000e-01 -1.99333333e-01]
+ [ 5.66666667e-02 -5.73333333e-02  4.42000000e-01  3.00666667e-01]
+ [ 1.56666667e-01 -8.57333333e-01  2.42000000e-01 -1.99333333e-01]
+ [ 2.56666667e-01 -1.57333333e-01  9.42000000e-01  2.00666667e-01]
+ [-2.43333333e-01 -1.57333333e-01 -1.58000000e-01  1.00666667e-01]
+ [ 8.56666667e-01  4.26666667e-02  6.42000000e-01  2.00666667e-01]
+ [-2.43333333e-01 -5.73333333e-02  7.42000000e-01  3.00666667e-01]
+ [-4.33333333e-02 -3.57333333e-01  3.42000000e-01 -1.99333333e-01]
+ [ 3.56666667e-01 -8.57333333e-01  7.42000000e-01  3.00666667e-01]
+ [-2.43333333e-01 -5.57333333e-01  1.42000000e-01 -9.93333333e-02]
+ [ 5.66666667e-02  1.42666667e-01  1.04200000e+00  6.00666667e-01]
+ [ 2.56666667e-01 -2.57333333e-01  2.42000000e-01  1.00666667e-01]
+ [ 4.56666667e-01 -5.57333333e-01  1.14200000e+00  3.00666667e-01]
+ [ 2.56666667e-01 -2.57333333e-01  9.42000000e-01  6.66666667e-04]
+ [ 5.56666667e-01 -1.57333333e-01  5.42000000e-01  1.00666667e-01]
+ [ 7.56666667e-01 -5.73333333e-02  6.42000000e-01  2.00666667e-01]
+ [ 9.56666667e-01 -2.57333333e-01  1.04200000e+00  2.00666667e-01]
+ [ 8.56666667e-01 -5.73333333e-02  1.24200000e+00  5.00666667e-01]
+ [ 1.56666667e-01 -1.57333333e-01  7.42000000e-01  3.00666667e-01]
+ [-1.43333333e-01 -4.57333333e-01 -2.58000000e-01 -1.99333333e-01]
+ [-3.43333333e-01 -6.57333333e-01  4.20000000e-02 -9.93333333e-02]
+ [-3.43333333e-01 -6.57333333e-01 -5.80000000e-02 -1.99333333e-01]
+ [-4.33333333e-02 -3.57333333e-01  1.42000000e-01  6.66666667e-04]
+ [ 1.56666667e-01 -3.57333333e-01  1.34200000e+00  4.00666667e-01]
+ [-4.43333333e-01 -5.73333333e-02  7.42000000e-01  3.00666667e-01]
+ [ 1.56666667e-01  3.42666667e-01  7.42000000e-01  4.00666667e-01]
+ [ 8.56666667e-01  4.26666667e-02  9.42000000e-01  3.00666667e-01]
+ [ 4.56666667e-01 -7.57333333e-01  6.42000000e-01  1.00666667e-01]
+ [-2.43333333e-01 -5.73333333e-02  3.42000000e-01  1.00666667e-01]
+ [-3.43333333e-01 -5.57333333e-01  2.42000000e-01  1.00666667e-01]
+ [-3.43333333e-01 -4.57333333e-01  6.42000000e-01  6.66666667e-04]
+ [ 2.56666667e-01 -5.73333333e-02  8.42000000e-01  2.00666667e-01]
+ [-4.33333333e-02 -4.57333333e-01  2.42000000e-01  6.66666667e-04]
+ [-8.43333333e-01 -7.57333333e-01 -4.58000000e-01 -1.99333333e-01]
+ [-2.43333333e-01 -3.57333333e-01  4.42000000e-01  1.00666667e-01]
+ [-1.43333333e-01 -5.73333333e-02  4.42000000e-01  6.66666667e-04]
+ [-1.43333333e-01 -1.57333333e-01  4.42000000e-01  1.00666667e-01]
+ [ 3.56666667e-01 -1.57333333e-01  5.42000000e-01  1.00666667e-01]
+ [-7.43333333e-01 -5.57333333e-01 -7.58000000e-01 -9.93333333e-02]
+ [-1.43333333e-01 -2.57333333e-01  3.42000000e-01  1.00666667e-01]
+ [ 4.56666667e-01  2.42666667e-01  2.24200000e+00  1.30066667e+00]
+ [-4.33333333e-02 -3.57333333e-01  1.34200000e+00  7.00666667e-01]
+ [ 1.25666667e+00 -5.73333333e-02  2.14200000e+00  9.00666667e-01]
+ [ 4.56666667e-01 -1.57333333e-01  1.84200000e+00  6.00666667e-01]
+ [ 6.56666667e-01 -5.73333333e-02  2.04200000e+00  1.00066667e+00]
+ [ 1.75666667e+00 -5.73333333e-02  2.84200000e+00  9.00666667e-01]
+ [-9.43333333e-01 -5.57333333e-01  7.42000000e-01  5.00666667e-01]
+ [ 1.45666667e+00 -1.57333333e-01  2.54200000e+00  6.00666667e-01]
+ [ 8.56666667e-01 -5.57333333e-01  2.04200000e+00  6.00666667e-01]
+ [ 1.35666667e+00  5.42666667e-01  2.34200000e+00  1.30066667e+00]
+ [ 6.56666667e-01  1.42666667e-01  1.34200000e+00  8.00666667e-01]
+ [ 5.56666667e-01 -3.57333333e-01  1.54200000e+00  7.00666667e-01]
+ [ 9.56666667e-01 -5.73333333e-02  1.74200000e+00  9.00666667e-01]
+ [-1.43333333e-01 -5.57333333e-01  1.24200000e+00  8.00666667e-01]
+ [-4.33333333e-02 -2.57333333e-01  1.34200000e+00  1.20066667e+00]
+ [ 5.56666667e-01  1.42666667e-01  1.54200000e+00  1.10066667e+00]
+ [ 6.56666667e-01 -5.73333333e-02  1.74200000e+00  6.00666667e-01]
+ [ 1.85666667e+00  7.42666667e-01  2.94200000e+00  1.00066667e+00]
+ [ 1.85666667e+00 -4.57333333e-01  3.14200000e+00  1.10066667e+00]
+ [ 1.56666667e-01 -8.57333333e-01  1.24200000e+00  3.00666667e-01]
+ [ 1.05666667e+00  1.42666667e-01  1.94200000e+00  1.10066667e+00]
+ [-2.43333333e-01 -2.57333333e-01  1.14200000e+00  8.00666667e-01]
+ [ 1.85666667e+00 -2.57333333e-01  2.94200000e+00  8.00666667e-01]
+ [ 4.56666667e-01 -3.57333333e-01  1.14200000e+00  6.00666667e-01]
+ [ 8.56666667e-01  2.42666667e-01  1.94200000e+00  9.00666667e-01]
+ [ 1.35666667e+00  1.42666667e-01  2.24200000e+00  6.00666667e-01]
+ [ 3.56666667e-01 -2.57333333e-01  1.04200000e+00  6.00666667e-01]
+ [ 2.56666667e-01 -5.73333333e-02  1.14200000e+00  6.00666667e-01]
+ [ 5.56666667e-01 -2.57333333e-01  1.84200000e+00  9.00666667e-01]
+ [ 1.35666667e+00 -5.73333333e-02  2.04200000e+00  4.00666667e-01]
+ [ 1.55666667e+00 -2.57333333e-01  2.34200000e+00  7.00666667e-01]
+ [ 2.05666667e+00  7.42666667e-01  2.64200000e+00  8.00666667e-01]
+ [ 5.56666667e-01 -2.57333333e-01  1.84200000e+00  1.00066667e+00]
+ [ 4.56666667e-01 -2.57333333e-01  1.34200000e+00  3.00666667e-01]
+ [ 2.56666667e-01 -4.57333333e-01  1.84200000e+00  2.00666667e-01]
+ [ 1.85666667e+00 -5.73333333e-02  2.34200000e+00  1.10066667e+00]
+ [ 4.56666667e-01  3.42666667e-01  1.84200000e+00  1.20066667e+00]
+ [ 5.56666667e-01  4.26666667e-02  1.74200000e+00  6.00666667e-01]
+ [ 1.56666667e-01 -5.73333333e-02  1.04200000e+00  6.00666667e-01]
+ [ 1.05666667e+00  4.26666667e-02  1.64200000e+00  9.00666667e-01]
+ [ 8.56666667e-01  4.26666667e-02  1.84200000e+00  1.20066667e+00]
+ [ 1.05666667e+00  4.26666667e-02  1.34200000e+00  1.10066667e+00]
+ [-4.33333333e-02 -3.57333333e-01  1.34200000e+00  7.00666667e-01]
+ [ 9.56666667e-01  1.42666667e-01  2.14200000e+00  1.10066667e+00]
+ [ 8.56666667e-01  2.42666667e-01  1.94200000e+00  1.30066667e+00]
+ [ 8.56666667e-01 -5.73333333e-02  1.44200000e+00  1.10066667e+00]
+ [ 4.56666667e-01 -5.57333333e-01  1.24200000e+00  7.00666667e-01]
+ [ 6.56666667e-01 -5.73333333e-02  1.44200000e+00  8.00666667e-01]
+ [ 3.56666667e-01  3.42666667e-01  1.64200000e+00  1.10066667e+00]
+ [ 5.66666667e-02 -5.73333333e-02  1.34200000e+00  6.00666667e-01]]
+Principal Components:
+ [[-2.68412563e+00 -3.19397247e-01  2.79148276e-02  2.26243707e-03]
+ [-2.71414169e+00  1.77001225e-01  2.10464272e-01  9.90265503e-02]
+ [-2.88899057e+00  1.44949426e-01 -1.79002563e-02  1.99683897e-02]
+ [-2.74534286e+00  3.18298979e-01 -3.15593736e-02 -7.55758166e-02]
+ [-2.72871654e+00 -3.26754513e-01 -9.00792406e-02 -6.12585926e-02]
+ [-2.28085963e+00 -7.41330449e-01 -1.68677658e-01 -2.42008576e-02]
+ [-2.82053775e+00  8.94613845e-02 -2.57892158e-01 -4.81431065e-02]
+ [-2.62614497e+00 -1.63384960e-01  2.18793179e-02 -4.52978706e-02]
+ [-2.88638273e+00  5.78311754e-01 -2.07595703e-02 -2.67447358e-02]
+ [-2.67275580e+00  1.13774246e-01  1.97632725e-01 -5.62954013e-02]
+ [-2.50694709e+00 -6.45068899e-01  7.53180094e-02 -1.50199245e-02]
+ [-2.61275523e+00 -1.47299392e-02 -1.02150260e-01 -1.56379208e-01]
+ [-2.78610927e+00  2.35112000e-01  2.06844430e-01 -7.88791149e-03]
+ [-3.22380374e+00  5.11394587e-01 -6.12996725e-02 -2.16798118e-02]
+ [-2.64475039e+00 -1.17876464e+00  1.51627524e-01  1.59209718e-01]
+ [-2.38603903e+00 -1.33806233e+00 -2.77776903e-01  6.55154587e-03]
+ [-2.62352788e+00 -8.10679514e-01 -1.38183228e-01  1.67734737e-01]
+ [-2.64829671e+00 -3.11849145e-01 -2.66683156e-02  7.76281796e-02]
+ [-2.19982032e+00 -8.72839039e-01  1.20305523e-01  2.70518681e-02]
+ [-2.58798640e+00 -5.13560309e-01 -2.13665172e-01 -6.62726502e-02]
+ [-2.31025622e+00 -3.91345936e-01  2.39444043e-01 -1.50707908e-02]
+ [-2.54370523e+00 -4.32996063e-01 -2.08457232e-01  4.10654027e-02]
+ [-3.21593942e+00 -1.33468070e-01 -2.92396751e-01  4.48212505e-03]
+ [-2.30273318e+00 -9.87088548e-02 -3.91232587e-02  1.48352589e-01]
+ [-2.35575405e+00  3.72818597e-02 -1.25021083e-01 -3.00330904e-01]
+ [-2.50666891e+00  1.46016880e-01  2.53420042e-01  3.46074722e-02]
+ [-2.46882007e+00 -1.30951489e-01 -9.49105761e-02  5.74497158e-02]
+ [-2.56231991e+00 -3.67718857e-01  7.84942051e-02 -1.41727423e-02]
+ [-2.63953472e+00 -3.12039980e-01  1.45908896e-01  6.57834667e-02]
+ [-2.63198939e+00  1.96961225e-01 -4.07710791e-02 -1.23983306e-01]
+ [-2.58739848e+00  2.04318491e-01  7.72229891e-02 -6.04622767e-02]
+ [-2.40993250e+00 -4.10924264e-01  1.45524972e-01  2.31628492e-01]
+ [-2.64886233e+00 -8.13363820e-01 -2.25669150e-01 -2.81372347e-01]
+ [-2.59873675e+00 -1.09314576e+00 -1.57810813e-01 -9.53488583e-02]
+ [-2.63692688e+00  1.21322348e-01  1.43049582e-01  1.90703413e-02]
+ [-2.86624165e+00 -6.93644716e-02  1.64332307e-01  1.62598446e-01]
+ [-2.62523805e+00 -5.99370021e-01  2.68350376e-01  1.76441213e-01]
+ [-2.80068412e+00 -2.68643738e-01 -9.36990825e-02 -1.68173054e-01]
+ [-2.98050204e+00  4.87958344e-01 -7.29270457e-02 -1.07331474e-02]
+ [-2.59000631e+00 -2.29043837e-01  8.00823030e-02 -1.37491513e-02]
+ [-2.77010243e+00 -2.63527534e-01 -7.72476932e-02  9.40633590e-02]
+ [-2.84936871e+00  9.40960574e-01  3.49230377e-01  3.19987487e-01]
+ [-2.99740655e+00  3.41926057e-01 -1.92509212e-01 -7.46777682e-02]
+ [-2.40561449e+00 -1.88871429e-01 -2.63867946e-01  1.76208890e-01]
+ [-2.20948924e+00 -4.36663142e-01 -2.98742746e-01 -1.82842502e-01]
+ [-2.71445143e+00  2.50208204e-01  9.76781440e-02  1.42843574e-01]
+ [-2.53814826e+00 -5.03771144e-01 -1.66705637e-01 -1.89622291e-01]
+ [-2.83946217e+00  2.27945569e-01 -8.37268490e-02 -5.95642283e-02]
+ [-2.54308575e+00 -5.79410022e-01  1.71150242e-02 -4.65686438e-02]
+ [-2.70335978e+00 -1.07706082e-01  8.92940085e-02  3.46583385e-02]
+ [ 1.28482569e+00 -6.85160470e-01  4.06568025e-01  1.85252879e-02]
+ [ 9.32488532e-01 -3.18333638e-01  1.80141866e-02  5.66512106e-04]
+ [ 1.46430232e+00 -5.04262815e-01  3.38325765e-01 -1.65317587e-03]
+ [ 1.83317720e-01  8.27959012e-01  1.79591392e-01  9.35668402e-02]
+ [ 1.08810326e+00 -7.45906752e-02  3.07757896e-01  1.12020574e-01]
+ [ 6.41669084e-01  4.18246872e-01 -4.10760908e-02 -2.43116767e-01]
+ [ 1.09506066e+00 -2.83468270e-01 -1.69810240e-01 -8.35565724e-02]
+ [-7.49122670e-01  1.00489096e+00 -1.23029192e-02 -1.79077226e-02]
+ [ 1.04413183e+00 -2.28361900e-01  4.15336085e-01 -3.91345020e-02]
+ [-8.74540408e-03  7.23081905e-01 -2.81141431e-01 -5.61891788e-03]
+ [-5.07840884e-01  1.26597119e+00  2.69817183e-01  4.55624408e-02]
+ [ 5.11698557e-01  1.03981235e-01 -1.30547750e-01  5.07192325e-02]
+ [ 2.64976508e-01  5.50036464e-01  6.94146830e-01  5.71855195e-02]
+ [ 9.84934510e-01  1.24817854e-01  6.21144083e-02 -1.69496255e-01]
+ [-1.73925372e-01  2.54854209e-01 -9.04576907e-02  1.25217292e-01]
+ [ 9.27860781e-01 -4.67179494e-01  3.14620976e-01  9.98031365e-02]
+ [ 6.60283762e-01  3.52969666e-01 -3.28027528e-01 -1.87878621e-01]
+ [ 2.36104993e-01  3.33610767e-01  2.71161837e-01 -2.13757370e-01]
+ [ 9.44733728e-01  5.43145551e-01  4.99519046e-01  2.57192177e-01]
+ [ 4.52269763e-02  5.83834377e-01  2.35002105e-01 -4.15766476e-02]
+ [ 1.11628318e+00  8.46168522e-02 -4.59620991e-01 -7.50315529e-02]
+ [ 3.57888418e-01  6.89250317e-02  2.29853888e-01  1.22997604e-01]
+ [ 1.29818388e+00  3.27787308e-01  3.47854352e-01  8.88370584e-04]
+ [ 9.21728922e-01  1.82737794e-01  2.31071778e-01 -2.88255429e-01]
+ [ 7.14853326e-01 -1.49055944e-01  3.21800937e-01  4.17197556e-02]
+ [ 9.00174373e-01 -3.28504474e-01  3.16209074e-01  1.00226728e-01]
+ [ 1.33202444e+00 -2.44440876e-01  5.21702780e-01  3.53331921e-02]
+ [ 1.55780216e+00 -2.67495447e-01  1.64920984e-01  6.99692823e-02]
+ [ 8.13290650e-01  1.63350301e-01 -3.54245048e-02 -2.97114340e-02]
+ [-3.05583778e-01  3.68262190e-01  3.18491581e-01  7.45696136e-02]
+ [-6.81264921e-02  7.05172132e-01  2.44213810e-01  6.83084222e-03]
+ [-1.89622472e-01  6.80286764e-01  3.06420561e-01 -2.05510016e-02]
+ [ 1.36428712e-01  3.14032438e-01  1.77242766e-01  3.29419128e-02]
+ [ 1.38002644e+00  4.20954287e-01 -1.61671275e-02 -1.78304463e-01]
+ [ 5.88006443e-01  4.84287420e-01 -4.44433499e-01 -2.50976060e-01]
+ [ 8.06858313e-01 -1.94182315e-01 -3.88963063e-01 -1.14207243e-01]
+ [ 1.22069088e+00 -4.07619594e-01  2.37167010e-01  3.12171829e-02]
+ [ 8.15095236e-01  3.72037060e-01  6.14720843e-01  1.54021000e-01]
+ [ 2.45957680e-01  2.68524397e-01 -1.88366812e-01 -1.46674512e-01]
+ [ 1.66413217e-01  6.81926725e-01  6.00092259e-02  2.96222195e-02]
+ [ 4.64800288e-01  6.70711545e-01  2.43068557e-02 -2.69651428e-01]
+ [ 8.90815198e-01  3.44644444e-02  9.94693289e-03 -1.53484666e-01]
+ [ 2.30548024e-01  4.04385848e-01  2.29410241e-01  1.69303245e-02]
+ [-7.04531759e-01  1.01224823e+00  1.05691149e-01  4.56133071e-02]
+ [ 3.56981495e-01  5.04910093e-01 -1.66171702e-02 -9.87414793e-02]
+ [ 3.31934480e-01  2.12654684e-01 -8.32042909e-02 -2.38475434e-01]
+ [ 3.76215651e-01  2.93218929e-01 -7.79963511e-02 -1.31137381e-01]
+ [ 6.42576008e-01 -1.77381901e-02  2.05394967e-01 -2.13776830e-02]
+ [-9.06469865e-01  7.56093367e-01  1.25996476e-02  2.32534844e-01]
+ [ 2.99000842e-01  3.48897806e-01 -1.05816605e-02 -5.11811717e-02]
+ [ 2.53119273e+00  9.84910950e-03 -7.60165427e-01 -2.90555728e-02]
+ [ 1.41523588e+00  5.74916348e-01 -2.96322527e-01 -1.53046739e-02]
+ [ 2.61667602e+00 -3.43903151e-01  1.10787883e-01  6.57720412e-02]
+ [ 1.97153105e+00  1.79727904e-01 -1.08424662e-01 -2.36790934e-01]
+ [ 2.35000592e+00  4.02609471e-02 -2.85389563e-01 -1.70633278e-04]
+ [ 3.39703874e+00 -5.50836673e-01  3.48437556e-01 -1.12371653e-01]
+ [ 5.21232244e-01  1.19275873e+00 -5.45659296e-01 -9.81266196e-02]
+ [ 2.93258707e+00 -3.55500003e-01  4.20239936e-01 -2.57191032e-01]
+ [ 2.32122882e+00  2.43831502e-01  3.48304395e-01 -7.86746130e-02]
+ [ 2.91675097e+00 -7.82791949e-01 -4.23335418e-01  1.10982071e-01]
+ [ 1.66177415e+00 -2.42228408e-01 -2.42440190e-01  1.21040552e-01]
+ [ 1.80340195e+00  2.15637617e-01  3.76481682e-02  7.80198444e-02]
+ [ 2.16559180e+00 -2.16275585e-01 -3.33266418e-02  1.63061478e-01]
+ [ 1.34616358e+00  7.76818347e-01 -2.81902882e-01  1.40440869e-01]
+ [ 1.58592822e+00  5.39640714e-01 -6.29029326e-01  3.29551728e-01]
+ [ 1.90445637e+00 -1.19250692e-01 -4.79639820e-01  2.19621263e-01]
+ [ 1.94968906e+00 -4.19432597e-02 -4.41861676e-02 -1.57681907e-01]
+ [ 3.48705536e+00 -1.17573933e+00 -1.33894874e-01 -3.09219573e-01]
+ [ 3.79564542e+00 -2.57322973e-01  5.13767764e-01  5.38460965e-02]
+ [ 1.30079171e+00  7.61149636e-01  3.44995038e-01 -4.58247549e-02]
+ [ 2.42781791e+00 -3.78196013e-01 -2.19119324e-01  1.85429264e-01]
+ [ 1.19900111e+00  6.06091528e-01 -5.11855509e-01  6.09591171e-02]
+ [ 3.49992004e+00 -4.60674099e-01  5.73182243e-01 -1.40227954e-01]
+ [ 1.38876613e+00  2.04399327e-01  6.45227566e-02  1.63040977e-01]
+ [ 2.27543050e+00 -3.34990606e-01 -2.86150091e-01 -6.03719696e-02]
+ [ 2.61409047e+00 -5.60901355e-01  2.05534524e-01 -2.40704986e-01]
+ [ 1.25850816e+00  1.79704795e-01 -4.58477039e-02  1.47503846e-01]
+ [ 1.29113206e+00  1.16668651e-01 -2.31256463e-01  4.02660775e-03]
+ [ 2.12360872e+00  2.09729477e-01 -1.54180024e-01  5.28273230e-02]
+ [ 2.38800302e+00 -4.64639805e-01  4.49530192e-01 -2.31524053e-01]
+ [ 2.84167278e+00 -3.75269167e-01  4.98898076e-01 -2.23364626e-02]
+ [ 3.23067366e+00 -1.37416509e+00  1.14548205e-01 -2.52901923e-01]
+ [ 2.15943764e+00  2.17277579e-01 -2.08763167e-01  1.28193066e-01]
+ [ 1.44416124e+00  1.43413410e-01  1.53233888e-01 -1.90996358e-01]
+ [ 1.78129481e+00  4.99901681e-01  1.72875189e-01 -5.05434412e-01]
+ [ 3.07649993e+00 -6.88085678e-01  3.35592292e-01  3.09828045e-01]
+ [ 2.14424331e+00 -1.40064201e-01 -7.34878937e-01  5.55419691e-02]
+ [ 1.90509815e+00 -4.93005260e-02 -1.62180236e-01 -2.21202937e-01]
+ [ 1.16932634e+00  1.64990262e-01 -2.81835840e-01  2.04617872e-02]
+ [ 2.10761114e+00 -3.72287872e-01 -2.72911321e-02  2.10621786e-01]
+ [ 2.31415471e+00 -1.83651279e-01 -3.22693747e-01  2.77653777e-01]
+ [ 1.92226780e+00 -4.09203467e-01 -1.13586596e-01  5.05304967e-01]
+ [ 1.41523588e+00  5.74916348e-01 -2.96322527e-01 -1.53046739e-02]
+ [ 2.56301338e+00 -2.77862603e-01 -2.92569525e-01  5.79127477e-02]
+ [ 2.41874618e+00 -3.04798198e-01 -5.04482664e-01  2.41091000e-01]
+ [ 1.94410979e+00 -1.87532303e-01 -1.77825091e-01  4.26195940e-01]
+ [ 1.52716661e+00  3.75316983e-01  1.21898172e-01  2.54367442e-01]
+ [ 1.76434572e+00 -7.88588545e-02 -1.30481631e-01  1.37001274e-01]
+ [ 1.90094161e+00 -1.16627959e-01 -7.23251563e-01  4.45953047e-02]
+ [ 1.39018886e+00  2.82660938e-01 -3.62909648e-01 -1.55038628e-01]]
+Eigenvalues:
+ [4.22824171 0.24267075 0.0782095  0.02383509]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.font_manager</span> <span class="kn">import</span> <span class="n">FontProperties</span>
+
+
+<span class="c1">#TITLE_FONT = FontProperties(family=&quot;Arial&quot;, size=16, weight=&quot;semibold&quot;)</span>
+<span class="c1">#AXIS_FONT = FontProperties(family=&quot;Arial&quot;, size=14)</span>
+<span class="n">TITLE_FONT</span> <span class="o">=</span> <span class="n">FontProperties</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s1">&#39;/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;semibold&quot;</span><span class="p">)</span>
+<span class="n">AXIS_FONT</span> <span class="o">=</span> <span class="n">FontProperties</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s1">&#39;/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">LASALLE_BLUE</span> <span class="o">=</span> <span class="s2">&quot;#00245D&quot;</span>
+
+<span class="c1"># Get feature names</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;feature_names&#39;</span><span class="p">]]</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">vt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">pc_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PC </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span>
+
+<span class="c1"># Calculate proportion of variance explained</span>
+<span class="n">eig_val</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">X_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ve</span> <span class="o">=</span> <span class="n">eig_val</span> <span class="o">/</span> <span class="n">eig_val</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Plot proportion of total variance explained</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">ve</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">LASALLE_BLUE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Proportion of Total Variance Explained (Centered)&quot;</span><span class="p">,</span> <span class="n">fontproperties</span><span class="o">=</span><span class="n">TITLE_FONT</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">pc_labels</span><span class="p">,</span> <span class="n">fontproperties</span><span class="o">=</span><span class="n">AXIS_FONT</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot factor loadings</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">vt</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_val</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Factor Loadings (Centered)&quot;</span><span class="p">,</span> <span class="n">fontproperties</span><span class="o">=</span><span class="n">TITLE_FONT</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">pc_labels</span><span class="p">,</span> <span class="n">fontproperties</span><span class="o">=</span><span class="n">AXIS_FONT</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">fontproperties</span><span class="o">=</span><span class="n">AXIS_FONT</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndenumerate</span><span class="p">(</span><span class="n">vt</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_val</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:0.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">fontproperties</span><span class="o">=</span><span class="n">AXIS_FONT</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cb24c722cd7b883d542a8e4b15aba05fdb0cd2c91f02efaf0410408d536289f5.png" src="_images/cb24c722cd7b883d542a8e4b15aba05fdb0cd2c91f02efaf0410408d536289f5.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Konsep Eigen value and Eigen vektor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-konsep-eigen-value">Penjelasan Konsep Eigen value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jika-i-a-0-memiliki-solusi-tidak-nol-maka-haruslah">jika (<span class="math notranslate nohighlight">\(λ\)</span>I-A)=0 memiliki solusi tidak-nol , maka haruslah</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-menentukan-nilai-eigen-dan-vektor-eigen-dari-suatu-matriks">contoh menentukan nilai eigen dan vektor eigen dari suatu matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-menyelesaikan-eigen-value-dan-aigen-vektor-dengan-library-numpy">contoh menyelesaikan eigen value dan aigen vektor dengan library numpy</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dari-code-yang-dikirim-hanya-mengeluaran-matriks-dari-proses-tsb">implementasi dari code yang dikirim (hanya mengeluaran matriks dari proses tsb)</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

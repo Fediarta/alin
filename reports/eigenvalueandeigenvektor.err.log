@@ -1,0 +1,55 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/local/lib/python3.10/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def pcaSVD(X):
+    # Center X and get covariance matrix C
+    n, p = X.shape
+    X -= X.mean(axis=0)
+
+    # SVD
+    u, sigma, vt = np.linalg.svd(X, full_matrices=False)
+
+
+
+
+    # Return principal compnents and eigenvalues to calculate the portion of sample variance explained
+    return (X @ vt.T), (sigma**2) / (n-1)
+
+print("U matrix:")
+print(u)
+print("\nSigma matrix:")
+print(np.diag(sigma))
+print("\nV^T matrix:")
+print(vt)
+
+------------------
+
+----- stdout -----
+U matrix:
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-6-700ef2fde94c>[0m in [0;36m<cell line: 16>[0;34m()[0m
+[1;32m     14[0m [0;34m[0m[0m
+[1;32m     15[0m [0mprint[0m[0;34m([0m[0;34m"U matrix:"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 16[0;31m [0mprint[0m[0;34m([0m[0mu[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     17[0m [0mprint[0m[0;34m([0m[0;34m"\nSigma matrix:"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     18[0m [0mprint[0m[0;34m([0m[0mnp[0m[0;34m.[0m[0mdiag[0m[0;34m([0m[0msigma[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mNameError[0m: name 'u' is not defined
+
