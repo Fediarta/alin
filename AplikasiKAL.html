@@ -1,0 +1,1510 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PageRank &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AplikasiKAL';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sistemlinier.html">Tugas 1</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Aljabar.html">Aljabar Matrik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DETERMINAN.html">DETERMINAN</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FAplikasiKAL.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/AplikasiKAL.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PageRank</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PageRank</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja-pagerank-untuk-menghitung-nilai-web">Cara Kerja PageRank untuk menghitung nilai web:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#faktor-penentu-pagerank">Faktor Penentu PageRank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#status-pagerank-saat-ini">Status PageRank Saat Ini</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-1">iterasi 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-times-v-begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-25-0-25-0-25-0-25-end-pmatrix">$
+A \times v = \begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times
+\begin{pmatrix}
+0.25 \
+0.25 \
+0.25 \
+0.25
+\end{pmatrix}</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-times-0-25-0-times-0-25-1-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-0-times-0-25-0-times-0-25-0-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-0-times-0-25-end-pmatrix">\begin{pmatrix}
+0 \times 0.25 + 0 \times 0.25 + 1 \times 0.25 + \frac{1}{2} \times 0.25 \
+\frac{1}{3} \times 0.25 + 0 \times 0.25 + 0 \times 0.25 + 0 \times 0.25 \
+\frac{1}{3} \times 0.25 + \frac{1}{2} \times 0.25 + 0 \times 0.25 + \frac{1}{2} \times 0.25 \
+\frac{1}{3} \times 0.25 + \frac{1}{2} \times 0.25 + 0 \times 0.25 + 0 \times 0.25
+\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-2">iterasi ke 2</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-2-times-v-a-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix">[
+A^2 <span class="math notranslate nohighlight">\(\times\)</span> v = A <span class="math notranslate nohighlight">\(\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.375 \\
+0.0833 \\
+0.3333 \\
+0.2083
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.375 \\
+0.0833 \\
+0.3333 \\
+0.2083
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-times-0-375-0-times-0-0833-1-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-0-times-0-0833-0-times-0-3333-0-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-0-times-0-2083-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.375 + 0 \times 0.0833 + 1 \times 0.3333 + \frac{1}{2} \times 0.2083 \\
+\frac{1}{3} \times 0.375 + 0 \times 0.0833 + 0 \times 0.3333 + 0 \times 0.2083 \\
+\frac{1}{3} \times 0.375 + \frac{1}{2} \times 0.0833 + 0 \times 0.3333 + \frac{1}{2} \times 0.2083 \\
+\frac{1}{3} \times 0.375 + \frac{1}{2} \times 0.0833 + 0 \times 0.3333 + 0 \times 0.2083
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-3333-0-10415-0-125-0-125-0-04165-0-10415-0-125-0-04165-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3333 + 0.10415 \\
+0.125 \\
+0.125 + 0.04165 + 0.10415 \\
+0.125 + 0.04165
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-3">iterasi ke 3</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-3-times-v-a-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix">[<span class="math notranslate nohighlight">\(
+A^3 \times v = A \times \begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2708-0-083325-0-1458167-0-1458167-0-0625-0-083325-0-1458167-0-0625-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2708 + 0.083325 \\
+0.1458167 \\
+0.1458167 + 0.0625 + 0.083325 \\
+0.1458167 + 0.0625
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-4">iterasi ke 4</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-4-times-v-a-times-begin-pmatrix-0-354125-0-1458167-0-2916417-0-2083167-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^4 \times v = A \times \begin{pmatrix}
+0.354125 \\
+0.1458167 \\
+0.2916417 \\
+0.2083167
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2916417-0-10415835-0-11804167-0-11804167-0-07290835-0-10415835-0-11804167-0-07290835-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2916417 + 0.10415835 \\
+0.11804167 \\
+0.11804167 + 0.07290835 + 0.10415835 \\
+0.11804167 + 0.07290835
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-5">iterasi ke 5</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-5-times-v-a-times-begin-pmatrix-0-3958-0-11804167-0-29510837-0-19095-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^5 \times v = A \times \begin{pmatrix}
+0.3958 \\
+0.11804167 \\
+0.29510837 \\
+0.19095
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-29510837-0-095475-0-13193333-0-13193333-0-059020835-0-095475-0-13193333-0-059020835-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.29510837 + 0.095475 \\
+0.13193333 \\
+0.13193333 + 0.059020835 + 0.095475 \\
+0.13193333 + 0.059020835
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-6">iterasi ke 6</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-6-times-v-a-times-begin-pmatrix-0-39058337-0-13193333-0-286429165-0-190954165-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^6 \times v = A \times \begin{pmatrix}
+0.39058337 \\
+0.13193333 \\
+0.286429165 \\
+0.190954165
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-286429165-0-0954770825-0-1301944567-0-1301944567-0-065966665-0-0954770825-0-1301944567-0-065966665-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.286429165 + 0.0954770825 \\
+0.1301944567 \\
+0.1301944567 + 0.065966665 + 0.0954770825 \\
+0.1301944567 + 0.065966665
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-7">iterasi ke 7</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-7-times-v-a-times-begin-pmatrix-0-3819062475-0-1301944567-0-2916382042-0-1961611217-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^7 \times v = A \times \begin{pmatrix}
+0.3819062475 \\
+0.1301944567 \\
+0.2916382042 \\
+0.1961611217
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2916382042-0-09808056085-0-1273020825-0-1273020825-0-06509722835-0-09808056085-0-1273020825-0-06509722835-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2916382042 + 0.09808056085 \\
+0.1273020825 \\
+0.1273020825 + 0.06509722835 + 0.09808056085 \\
+0.1273020825 + 0.06509722835
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-8">iterasi ke 8</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-8-times-v-a-times-begin-pmatrix-0-38971876505-0-1273020825-0-2904798717-0-19239931085-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^8 \times v = A \times \begin{pmatrix}
+0.38971876505 \\
+0.1273020825 \\
+0.2904798717 \\
+0.19239931085
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2904798717-0-096199655425-0-12990625501666667-0-12990625501666667-0-06365104125-0-096199655425-0-12990625501666667-0-06365104125-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2904798717 + 0.096199655425 \\
+0.12990625501666667 \\
+0.12990625501666667+ 0.06365104125 + 0.096199655425 \\
+0.12990625501666667 +0.06365104125
+\end{pmatrix}\)</span></a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pagerank">
+<h1>PageRank<a class="headerlink" href="#pagerank" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<p>Algoritma pagerank pertama kali diperkenalkan oleh lary page.biasanya digunakan untuk menetukan peringkat halaman web dimesin pencarian google,dan menentukan peringkat pengguna di media sosial . sehingga dengan algoritma pagerank kita mampu memperkirakan seberapa bagus suatu situs web.</p>
+<section id="cara-kerja-pagerank-untuk-menghitung-nilai-web">
+<h2>Cara Kerja PageRank untuk menghitung nilai web:<a class="headerlink" href="#cara-kerja-pagerank-untuk-menghitung-nilai-web" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<ol class="arabic simple">
+<li><p><strong>Jumlah Tautan</strong>: Semakin banyak tautan yang mengarah ke suatu halaman, semakin penting halaman tersebut.</p></li>
+<li><p><strong>Kualitas Tautan</strong>: Tautan dari halaman dengan PageRank tinggi memiliki bobot yang lebih tinggi dibandingkan tautan dari halaman dengan PageRank rendah.</p></li>
+<li><p><strong>Konektivitas Link</strong>: Distribusi link dan konektivitasnya di setiap situs web juga mempengaruhi PageRank.</p></li>
+</ol>
+<p>PageRank bekerja dengan menghitung jumlah dan kualitas tautan ke suatu halaman untuk menentukan perkiraan kasar seberapa penting situs web tersebut. Algoritma ini memberikan nilai mulai dari 0 hingga 10 untuk menunjukkan seberapa berkualitasnya website tersebut. Semakin tinggi nilai PageRank, semakin kredibel website tersebut dianggap.</p>
+<section id="faktor-penentu-pagerank">
+<h3>Faktor Penentu PageRank<a class="headerlink" href="#faktor-penentu-pagerank" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<p>Beberapa faktor yang mempengaruhi PageRank adalah:</p>
+<ol class="arabic simple">
+<li><p><strong>Backlinks</strong>: Jumlah dan kualitas tautan masuk yang mengarah ke suatu halaman.</p></li>
+<li><p><strong>Internal Linking</strong>: Tautan internal yang mengarah ke halaman lain di dalam situs web.</p></li>
+<li><p><strong>External Linking</strong>: Tautan eksternal yang mengarah ke situs web lain.</p></li>
+</ol>
+</section>
+<section id="status-pagerank-saat-ini">
+<h3>Status PageRank Saat Ini<a class="headerlink" href="#status-pagerank-saat-ini" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<p>Walaupun PageRank tidak lagi ditampilkan secara publik, algoritma ini masih digunakan dalam sistem internal Google. Namun, penting untuk diingat bahwa PageRank bukanlah satu-satunya faktor yang menentukan ranking halaman di hasil pencarian Google. Ada banyak faktor lain yang juga berperan, seperti konten halaman, kegunaan, kecepatan loading, dan lain-lain.</p>
+<p>Rumus PageRank yang asli dikembangkan oleh pendiri Google Lawrence Page dan Sergey Brin adalah sebagai berikut:
+<span class="math notranslate nohighlight">\(
+PR(A) = (1 - d) + d (PR(T1) / C(T1) + ... + PR(Tn) / C(Tn))
+\)</span>
+Di mana:</p>
+<ul class="simple">
+<li><p>PR(A) adalah PageRank halaman A</p></li>
+<li><p>PR(Ti) adalah PageRank halaman Ti yang menautkan ke halaman A</p></li>
+<li><p>C(Ti) adalah jumlah tautan eksternal halaman Ti</p></li>
+<li><p>d adalah koefisien dump yang berkisar dari 0 hingga 1, biasanya nilai acak adalah 0,85[3].</p></li>
+</ul>
+<p>contoh perhitungan manual matriks A dan vektor v()</p>
+<p><span class="math notranslate nohighlight">\(A = \begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}, \quad
+v = \begin{pmatrix}
+0.25 \\
+0.25 \\
+0.25 \\
+0.25
+\end{pmatrix}\)</span></p>
+</section>
+<section id="iterasi-1">
+<h3>iterasi 1<a class="headerlink" href="#iterasi-1" title="Link to this heading">#</a></h3>
+<p>((A <span class="math notranslate nohighlight">\(\times \)</span>v))</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-times-v-begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-25-0-25-0-25-0-25-end-pmatrix">
+<h1>$
+A \times v = \begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times
+\begin{pmatrix}
+0.25 \
+0.25 \
+0.25 \
+0.25
+\end{pmatrix}<a class="headerlink" href="#a-times-v-begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-25-0-25-0-25-0-25-end-pmatrix" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-times-0-25-0-times-0-25-1-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-0-times-0-25-0-times-0-25-0-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-0-times-0-25-end-pmatrix">
+<h1>\begin{pmatrix}
+0 \times 0.25 + 0 \times 0.25 + 1 \times 0.25 + \frac{1}{2} \times 0.25 \
+\frac{1}{3} \times 0.25 + 0 \times 0.25 + 0 \times 0.25 + 0 \times 0.25 \
+\frac{1}{3} \times 0.25 + \frac{1}{2} \times 0.25 + 0 \times 0.25 + \frac{1}{2} \times 0.25 \
+\frac{1}{3} \times 0.25 + \frac{1}{2} \times 0.25 + 0 \times 0.25 + 0 \times 0.25
+\end{pmatrix}<a class="headerlink" href="#begin-pmatrix-0-times-0-25-0-times-0-25-1-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-0-times-0-25-0-times-0-25-0-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-0-times-0-25-end-pmatrix" title="Link to this heading">#</a></h1>
+<p>\begin{pmatrix}
+0.375 \
+0.0833 \
+0.2917 \
+0.2083
+\end{pmatrix}
+$</p>
+<section id="iterasi-ke-2">
+<h2>iterasi ke 2<a class="headerlink" href="#iterasi-ke-2" title="Link to this heading">#</a></h2>
+<p>(A^2 <span class="math notranslate nohighlight">\( \times \)</span> v = A <span class="math notranslate nohighlight">\(\times\)</span> (A <span class="math notranslate nohighlight">\(\times\)</span> v)):</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-2-times-v-a-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix">
+<h1>[
+A^2 <span class="math notranslate nohighlight">\(\times\)</span> v = A <span class="math notranslate nohighlight">\(\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.375 \\
+0.0833 \\
+0.3333 \\
+0.2083
+\end{pmatrix}\)</span><a class="headerlink" href="#a-2-times-v-a-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.375 \\
+0.0833 \\
+0.3333 \\
+0.2083
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-times-0-375-0-times-0-0833-1-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-0-times-0-0833-0-times-0-3333-0-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-0-times-0-2083-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.375 + 0 \times 0.0833 + 1 \times 0.3333 + \frac{1}{2} \times 0.2083 \\
+\frac{1}{3} \times 0.375 + 0 \times 0.0833 + 0 \times 0.3333 + 0 \times 0.2083 \\
+\frac{1}{3} \times 0.375 + \frac{1}{2} \times 0.0833 + 0 \times 0.3333 + \frac{1}{2} \times 0.2083 \\
+\frac{1}{3} \times 0.375 + \frac{1}{2} \times 0.0833 + 0 \times 0.3333 + 0 \times 0.2083
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-times-0-375-0-times-0-0833-1-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-0-times-0-0833-0-times-0-3333-0-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-0-times-0-2083-end-pmatrix" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-3333-0-10415-0-125-0-125-0-04165-0-10415-0-125-0-04165-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3333 + 0.10415 \\
+0.125 \\
+0.125 + 0.04165 + 0.10415 \\
+0.125 + 0.04165
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-3333-0-10415-0-125-0-125-0-04165-0-10415-0-125-0-04165-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span>
+]</p>
+<section id="iterasi-ke-3">
+<h2>iterasi ke 3<a class="headerlink" href="#iterasi-ke-3" title="Link to this heading">#</a></h2>
+<p>$(A^3 \times v = A \times (A^2 \times v)$):</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-3-times-v-a-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix">
+<h1>[<span class="math notranslate nohighlight">\(
+A^3 \times v = A \times \begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span><a class="headerlink" href="#a-3-times-v-a-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.43745 + 0 \times 0.125 + 1 \times 0.2708 + \frac{1}{2} \times 0.16665 \\
+\frac{1}{3} \times 0.43745 + 0 \times 0.125 + 0 \times 0.2708 + 0 \times 0.16665 \\
+\frac{1}{3} \times 0.43745 + \frac{1}{2} \times 0.125 + 0 \times 0.2708 + \frac{1}{2} \times 0.16665 \\
+\frac{1}{3} \times 0.43745 + \frac{1}{2} \times 0.125 + 0 \times 0.2708 + 0 \times 0.16665
+\end{pmatrix}\)</span>
+]</p>
+<p>penyederhanaan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>[<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-2708-0-083325-0-1458167-0-1458167-0-0625-0-083325-0-1458167-0-0625-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2708 + 0.083325 \\
+0.1458167 \\
+0.1458167 + 0.0625 + 0.083325 \\
+0.1458167 + 0.0625
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-2708-0-083325-0-1458167-0-1458167-0-0625-0-083325-0-1458167-0-0625-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.354125 \\
+0.1458167 \\
+0.2916417 \\
+0.2083167
+\end{pmatrix}\)</span>
+]</p>
+<p>jadi ,hasil dari (A^3 <span class="math notranslate nohighlight">\(\times\)</span> v) :</p>
+<p>[
+<span class="math notranslate nohighlight">\(A^3 \times v = \begin{pmatrix}
+0.354125 \\
+0.1458167 \\
+0.2916417 \\
+0.2083167
+\end{pmatrix}\)</span>
+]</p>
+<section id="iterasi-ke-4">
+<h2>iterasi ke 4<a class="headerlink" href="#iterasi-ke-4" title="Link to this heading">#</a></h2>
+<p>$(A^4 \times v = A \times (A^3 \times v))$:</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-4-times-v-a-times-begin-pmatrix-0-354125-0-1458167-0-2916417-0-2083167-end-pmatrix">
+<h1>[
+<span class="math notranslate nohighlight">\(A^4 \times v = A \times \begin{pmatrix}
+0.354125 \\
+0.1458167 \\
+0.2916417 \\
+0.2083167
+\end{pmatrix}\)</span><a class="headerlink" href="#a-4-times-v-a-times-begin-pmatrix-0-354125-0-1458167-0-2916417-0-2083167-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.354125 \\
+0.1458167 \\
+0.2916417 \\
+0.2083167
+\end{pmatrix}\)</span>
+]</p>
+<p>Perhitungan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>[<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.354125 + 0 \times 0.1458167 + 1 \times 0.2916417 + \frac{1}{2} \times 0.2083167 \\
+\frac{1}{3} \times 0.354125 + 0 \times 0.1458167 + 0 \times 0.2916417 + 0 \times 0.2083167 \\
+\frac{1}{3} \times 0.354125 + \frac{1}{2} \times 0.1458167 + 0 \times 0.2916417 + \frac{1}{2} \times 0.2083167 \\
+\frac{1}{3} \times 0.354125 + \frac{1}{2} \times 0.1458167 + 0 \times 0.2916417 + 0 \times 0.2083167
+\end{pmatrix}\)</span>
+]</p>
+<p>penyederhanaan :</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>[<a class="headerlink" href="#id3" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-2916417-0-10415835-0-11804167-0-11804167-0-07290835-0-10415835-0-11804167-0-07290835-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2916417 + 0.10415835 \\
+0.11804167 \\
+0.11804167 + 0.07290835 + 0.10415835 \\
+0.11804167 + 0.07290835
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-2916417-0-10415835-0-11804167-0-11804167-0-07290835-0-10415835-0-11804167-0-07290835-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3958 \\
+0.11804167 \\
+0.29510837 \\
+0.19095
+\end{pmatrix}\)</span>
+]</p>
+<p>jadi,hasil perhitungan (A^4 <span class="math notranslate nohighlight">\(\times\)</span> v):</p>
+<p>[
+<span class="math notranslate nohighlight">\(A^4 \times v = \begin{pmatrix}
+0.3958 \\
+0.11804167 \\
+0.29510837 \\
+0.19095
+\end{pmatrix}\)</span>
+]</p>
+<section id="iterasi-ke-5">
+<h2>iterasi ke 5<a class="headerlink" href="#iterasi-ke-5" title="Link to this heading">#</a></h2>
+<p>$(A^5 \times v = A \times (A^4 \times v))$:</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-5-times-v-a-times-begin-pmatrix-0-3958-0-11804167-0-29510837-0-19095-end-pmatrix">
+<h1>[
+<span class="math notranslate nohighlight">\(A^5 \times v = A \times \begin{pmatrix}
+0.3958 \\
+0.11804167 \\
+0.29510837 \\
+0.19095
+\end{pmatrix}\)</span><a class="headerlink" href="#a-5-times-v-a-times-begin-pmatrix-0-3958-0-11804167-0-29510837-0-19095-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3958 \\
+0.11804167 \\
+0.29510837 \\
+0.19095
+\end{pmatrix}\)</span>
+]</p>
+<p>perhitungan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id4">
+<h1>[<a class="headerlink" href="#id4" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.3958 + 0 \times 0.11804167 + 1 \times 0.29510837 + \frac{1}{2} \times 0.19095 \\
+\frac{1}{3} \times 0.3958 + 0 \times 0.11804167 + 0 \times 0.29510837 + 0 \times 0.19095 \\
+\frac{1}{3} \times 0.3958 + \frac{1}{2} \times 0.11804167 + 0 \times 0.29510837 + \frac{1}{2} \times 0.19095 \\
+\frac{1}{3} \times 0.3958 + \frac{1}{2} \times 0.11804167 + 0 \times 0.29510837 + 0 \times 0.19095
+\end{pmatrix}\)</span>
+]</p>
+<p>perhitungan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id5">
+<h1>[<a class="headerlink" href="#id5" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-29510837-0-095475-0-13193333-0-13193333-0-059020835-0-095475-0-13193333-0-059020835-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.29510837 + 0.095475 \\
+0.13193333 \\
+0.13193333 + 0.059020835 + 0.095475 \\
+0.13193333 + 0.059020835
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-29510837-0-095475-0-13193333-0-13193333-0-059020835-0-095475-0-13193333-0-059020835-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.39058337 \\
+0.13193333 \\
+0.286429165 \\
+0.190954165
+\end{pmatrix}\)</span>
+]</p>
+<p>jadi,hasil dari  (A^5 <span class="math notranslate nohighlight">\(\times\)</span> v) is:</p>
+<p>[
+<span class="math notranslate nohighlight">\(A^5 \times v = \begin{pmatrix}
+0.39058337 \\
+0.13193333 \\
+0.286429165 \\
+0.190954165
+\end{pmatrix}\)</span>
+]</p>
+<section id="iterasi-ke-6">
+<h2>iterasi ke 6<a class="headerlink" href="#iterasi-ke-6" title="Link to this heading">#</a></h2>
+<p>$(A^6 \times v = A \times (A^5 \times v))$:</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-6-times-v-a-times-begin-pmatrix-0-39058337-0-13193333-0-286429165-0-190954165-end-pmatrix">
+<h1>[
+<span class="math notranslate nohighlight">\(A^6 \times v = A \times \begin{pmatrix}
+0.39058337 \\
+0.13193333 \\
+0.286429165 \\
+0.190954165
+\end{pmatrix}\)</span><a class="headerlink" href="#a-6-times-v-a-times-begin-pmatrix-0-39058337-0-13193333-0-286429165-0-190954165-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.39058337 \\
+0.13193333 \\
+0.286429165 \\
+0.190954165
+\end{pmatrix}\)</span>
+]</p>
+<p>perhitungan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id6">
+<h1>[<a class="headerlink" href="#id6" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.39058337 + 0 \times 0.13193333 + 1 \times 0.286429165 + \frac{1}{2} \times 0.190954165 \\
+\frac{1}{3} \times 0.39058337 + 0 \times 0.13193333 + 0 \times 0.286429165 + 0 \times 0.190954165 \\
+\frac{1}{3} \times 0.39058337 + \frac{1}{2} \times 0.13193333 + 0 \times 0.286429165 + \frac{1}{2} \times 0.190954165 \\
+\frac{1}{3} \times 0.39058337 + \frac{1}{2} \times 0.13193333 + 0 \times 0.286429165 + 0 \times 0.190954165
+\end{pmatrix}\)</span>
+]
+penyederhanaan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id7">
+<h1>[<a class="headerlink" href="#id7" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-286429165-0-0954770825-0-1301944567-0-1301944567-0-065966665-0-0954770825-0-1301944567-0-065966665-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.286429165 + 0.0954770825 \\
+0.1301944567 \\
+0.1301944567 + 0.065966665 + 0.0954770825 \\
+0.1301944567 + 0.065966665
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-286429165-0-0954770825-0-1301944567-0-1301944567-0-065966665-0-0954770825-0-1301944567-0-065966665-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3819062475 \\
+0.1301944567 \\
+0.2916382042 \\
+0.1961611217
+\end{pmatrix}\)</span>
+]</p>
+<p>jadi,hasil dari $(A^6 \times v)$ :</p>
+<p>[
+<span class="math notranslate nohighlight">\(A^6 \times v = \begin{pmatrix}
+0.3819062475 \\
+0.1301944567 \\
+0.2916382042 \\
+0.1961611217
+\end{pmatrix}\)</span>
+]</p>
+<section id="iterasi-ke-7">
+<h2>iterasi ke 7<a class="headerlink" href="#iterasi-ke-7" title="Link to this heading">#</a></h2>
+<p>$(A^7 \times v = A \times (A^6 \times v))$:</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-7-times-v-a-times-begin-pmatrix-0-3819062475-0-1301944567-0-2916382042-0-1961611217-end-pmatrix">
+<h1>[
+<span class="math notranslate nohighlight">\(A^7 \times v = A \times \begin{pmatrix}
+0.3819062475 \\
+0.1301944567 \\
+0.2916382042 \\
+0.1961611217
+\end{pmatrix}\)</span><a class="headerlink" href="#a-7-times-v-a-times-begin-pmatrix-0-3819062475-0-1301944567-0-2916382042-0-1961611217-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3819062475 \\
+0.1301944567 \\
+0.2916382042 \\
+0.1961611217
+\end{pmatrix}\)</span>
+]</p>
+<p>perhitungan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id8">
+<h1>[<a class="headerlink" href="#id8" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.3819062475 + 0 \times 0.1301944567 + 1 \times 0.2916382042 + \frac{1}{2} \times 0.1961611217 \\
+\frac{1}{3} \times 0.3819062475 + 0 \times 0.1301944567 + 0 \times 0.2916382042 + 0 \times 0.1961611217 \\
+\frac{1}{3} \times 0.3819062475 + \frac{1}{2} \times 0.1301944567 + 0 \times 0.2916382042 + \frac{1}{2} \times 0.1961611217 \\
+\frac{1}{3} \times 0.3819062475 + \frac{1}{2} \times 0.1301944567 + 0 \times 0.2916382042 + 0 \times 0.1961611217
+\end{pmatrix}\)</span>
+]</p>
+<p>penyederhanaan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id9">
+<h1>[<a class="headerlink" href="#id9" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-2916382042-0-09808056085-0-1273020825-0-1273020825-0-06509722835-0-09808056085-0-1273020825-0-06509722835-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2916382042 + 0.09808056085 \\
+0.1273020825 \\
+0.1273020825 + 0.06509722835 + 0.09808056085 \\
+0.1273020825 + 0.06509722835
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-2916382042-0-09808056085-0-1273020825-0-1273020825-0-06509722835-0-09808056085-0-1273020825-0-06509722835-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.38971876505 \\
+0.1273020825 \\
+0.2904798717 \\
+0.19239931085
+\end{pmatrix}\)</span>
+]</p>
+<p>jadi, hasil dari $(A^7 \times$ v) is:</p>
+<p>[
+<span class="math notranslate nohighlight">\(A^7 \times v = \begin{pmatrix}
+0.38971876505 \\
+0.1273020825 \\
+0.2904798717 \\
+0.19239931085
+\end{pmatrix}\)</span>
+]</p>
+<section id="iterasi-ke-8">
+<h2>iterasi ke 8<a class="headerlink" href="#iterasi-ke-8" title="Link to this heading">#</a></h2>
+<p>$(A^8 \times v = A \times (A^7 \times v))$:</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-8-times-v-a-times-begin-pmatrix-0-38971876505-0-1273020825-0-2904798717-0-19239931085-end-pmatrix">
+<h1>[
+<span class="math notranslate nohighlight">\(A^8 \times v = A \times \begin{pmatrix}
+0.38971876505 \\
+0.1273020825 \\
+0.2904798717 \\
+0.19239931085
+\end{pmatrix}\)</span><a class="headerlink" href="#a-8-times-v-a-times-begin-pmatrix-0-38971876505-0-1273020825-0-2904798717-0-19239931085-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.38971876505 \\
+0.1273020825 \\
+0.2904798717 \\
+0.19239931085
+\end{pmatrix}\)</span>
+]</p>
+<p>perhitungan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id10">
+<h1>[<a class="headerlink" href="#id10" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.38971876505 + 0 \times 0.1273020825 + 1 \times 0.2904798717 + \frac{1}{2} \times 0.19239931085 \\
+\frac{1}{3} \times 0.38971876505 + 0 \times 0.1273020825 + 0 \times 0.2904798717 + 0 \times 0.19239931085 \\
+\frac{1}{3} \times 0.38971876505 + \frac{1}{2} \times 0.1273020825 + 0 \times 0.2904798717 + \frac{1}{2} \times 0.19239931085 \\
+\frac{1}{3} \times 0.38971876505 + \frac{1}{2} \times 0.1273020825 + 0 \times 0.2904798717 + 0 \times 0.19239931085
+\end{pmatrix}\)</span>
+]</p>
+<p>penyederhanaan:</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id11">
+<h1>[<a class="headerlink" href="#id11" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="begin-pmatrix-0-2904798717-0-096199655425-0-12990625501666667-0-12990625501666667-0-06365104125-0-096199655425-0-12990625501666667-0-06365104125-end-pmatrix">
+<h1><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2904798717 + 0.096199655425 \\
+0.12990625501666667 \\
+0.12990625501666667+ 0.06365104125 + 0.096199655425 \\
+0.12990625501666667 +0.06365104125
+\end{pmatrix}\)</span><a class="headerlink" href="#begin-pmatrix-0-2904798717-0-096199655425-0-12990625501666667-0-12990625501666667-0-06365104125-0-096199655425-0-12990625501666667-0-06365104125-end-pmatrix" title="Link to this heading">#</a></h1>
+<p><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.386679527125 \\
+0.12990625501666667 \\
+0.2897569516916667 \\
+0.19355729626666668
+\end{pmatrix}\)</span>
+]</p>
+<p>jadi, hasil dari $(A^8 \times$ v) is:</p>
+<p>[
+<span class="math notranslate nohighlight">\(A^8 \times v = \begin{pmatrix}
+0.38971876505 \\
+0.1299062550166666 \\
+0.2897569516916667 \\
+0.19355729626666668
+\end{pmatrix}\)</span>
+]</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span><span class="mi">0</span> <span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">]])</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span><span class="n">z</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^2 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A x (Av)=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^3 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">))))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^4 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">)))))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^5 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">))))))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^6 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">)))))))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^7 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">))))))))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A^8 x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">)))))))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;&lt;ipython-input-1-c14387153162&gt;&quot;</span><span class="gt">, line </span><span class="mi">6</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;A x v=</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span><span class="n">z</span>
+                                    <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">]])</span>
+<span class="c1">#v = np.array([[0.20], [0.30], [0.20], [0.30]])</span>
+
+<span class="n">previous_result</span> <span class="o">=</span> <span class="n">v</span>
+<span class="n">tolerance</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># Ubah nilai toleransi menjadi 0.01</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>  <span class="c1"># Batasi jumlah iterasi untuk mencegah perulangan tak terbatas</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">previous_result</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(A^</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)v = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+    <span class="c1"># Cek kondisi berhenti</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">previous_result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">tolerance</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">result</span> <span class="o">-</span> <span class="n">previous_result</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Perkalian matriks konvergen pada iterasi ke-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+          <span class="k">break</span>
+
+    <span class="n">previous_result</span> <span class="o">=</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(A^1)v = 
+ [[0.375     ]
+ [0.08333333]
+ [0.33333333]
+ [0.20833333]]
+(A^2)v = 
+ [[0.4375    ]
+ [0.125     ]
+ [0.27083333]
+ [0.16666667]]
+(A^3)v = 
+ [[0.35416667]
+ [0.14583333]
+ [0.29166667]
+ [0.20833333]]
+(A^4)v = 
+ [[0.39583333]
+ [0.11805556]
+ [0.29513889]
+ [0.19097222]]
+(A^5)v = 
+ [[0.390625  ]
+ [0.13194444]
+ [0.28645833]
+ [0.19097222]]
+(A^6)v = 
+ [[0.38194444]
+ [0.13020833]
+ [0.29166667]
+ [0.19618056]]
+(A^7)v = 
+ [[0.38975694]
+ [0.12731481]
+ [0.29050926]
+ [0.19241898]]
+
+Perkalian matriks konvergen pada iterasi ke-7.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PageRank</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja-pagerank-untuk-menghitung-nilai-web">Cara Kerja PageRank untuk menghitung nilai web:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#faktor-penentu-pagerank">Faktor Penentu PageRank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#status-pagerank-saat-ini">Status PageRank Saat Ini</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-1">iterasi 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-times-v-begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-25-0-25-0-25-0-25-end-pmatrix">$
+A \times v = \begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times
+\begin{pmatrix}
+0.25 \
+0.25 \
+0.25 \
+0.25
+\end{pmatrix}</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-times-0-25-0-times-0-25-1-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-0-times-0-25-0-times-0-25-0-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-frac-1-2-times-0-25-frac-1-3-times-0-25-frac-1-2-times-0-25-0-times-0-25-0-times-0-25-end-pmatrix">\begin{pmatrix}
+0 \times 0.25 + 0 \times 0.25 + 1 \times 0.25 + \frac{1}{2} \times 0.25 \
+\frac{1}{3} \times 0.25 + 0 \times 0.25 + 0 \times 0.25 + 0 \times 0.25 \
+\frac{1}{3} \times 0.25 + \frac{1}{2} \times 0.25 + 0 \times 0.25 + \frac{1}{2} \times 0.25 \
+\frac{1}{3} \times 0.25 + \frac{1}{2} \times 0.25 + 0 \times 0.25 + 0 \times 0.25
+\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-2">iterasi ke 2</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-2-times-v-a-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix">[
+A^2 <span class="math notranslate nohighlight">\(\times\)</span> v = A <span class="math notranslate nohighlight">\(\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.375 \\
+0.0833 \\
+0.3333 \\
+0.2083
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-375-0-0833-0-3333-0-2083-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}\)</span>
+<span class="math notranslate nohighlight">\(\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.375 \\
+0.0833 \\
+0.3333 \\
+0.2083
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-times-0-375-0-times-0-0833-1-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-0-times-0-0833-0-times-0-3333-0-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-frac-1-2-times-0-2083-frac-1-3-times-0-375-frac-1-2-times-0-0833-0-times-0-3333-0-times-0-2083-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 \times 0.375 + 0 \times 0.0833 + 1 \times 0.3333 + \frac{1}{2} \times 0.2083 \\
+\frac{1}{3} \times 0.375 + 0 \times 0.0833 + 0 \times 0.3333 + 0 \times 0.2083 \\
+\frac{1}{3} \times 0.375 + \frac{1}{2} \times 0.0833 + 0 \times 0.3333 + \frac{1}{2} \times 0.2083 \\
+\frac{1}{3} \times 0.375 + \frac{1}{2} \times 0.0833 + 0 \times 0.3333 + 0 \times 0.2083
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-3333-0-10415-0-125-0-125-0-04165-0-10415-0-125-0-04165-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.3333 + 0.10415 \\
+0.125 \\
+0.125 + 0.04165 + 0.10415 \\
+0.125 + 0.04165
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-3">iterasi ke 3</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-3-times-v-a-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix">[<span class="math notranslate nohighlight">\(
+A^3 \times v = A \times \begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-0-1-frac-1-2-frac-1-3-0-0-0-frac-1-3-frac-1-2-0-frac-1-2-frac-1-3-frac-1-2-0-0-end-pmatrix-times-begin-pmatrix-0-43745-0-125-0-2708-0-16665-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\
+\frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0
+\end{pmatrix}
+\times\)</span>
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.43745 \\
+0.125 \\
+0.2708 \\
+0.16665
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2708-0-083325-0-1458167-0-1458167-0-0625-0-083325-0-1458167-0-0625-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2708 + 0.083325 \\
+0.1458167 \\
+0.1458167 + 0.0625 + 0.083325 \\
+0.1458167 + 0.0625
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-4">iterasi ke 4</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-4-times-v-a-times-begin-pmatrix-0-354125-0-1458167-0-2916417-0-2083167-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^4 \times v = A \times \begin{pmatrix}
+0.354125 \\
+0.1458167 \\
+0.2916417 \\
+0.2083167
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2916417-0-10415835-0-11804167-0-11804167-0-07290835-0-10415835-0-11804167-0-07290835-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2916417 + 0.10415835 \\
+0.11804167 \\
+0.11804167 + 0.07290835 + 0.10415835 \\
+0.11804167 + 0.07290835
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-5">iterasi ke 5</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-5-times-v-a-times-begin-pmatrix-0-3958-0-11804167-0-29510837-0-19095-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^5 \times v = A \times \begin{pmatrix}
+0.3958 \\
+0.11804167 \\
+0.29510837 \\
+0.19095
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-29510837-0-095475-0-13193333-0-13193333-0-059020835-0-095475-0-13193333-0-059020835-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.29510837 + 0.095475 \\
+0.13193333 \\
+0.13193333 + 0.059020835 + 0.095475 \\
+0.13193333 + 0.059020835
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-6">iterasi ke 6</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-6-times-v-a-times-begin-pmatrix-0-39058337-0-13193333-0-286429165-0-190954165-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^6 \times v = A \times \begin{pmatrix}
+0.39058337 \\
+0.13193333 \\
+0.286429165 \\
+0.190954165
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-286429165-0-0954770825-0-1301944567-0-1301944567-0-065966665-0-0954770825-0-1301944567-0-065966665-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.286429165 + 0.0954770825 \\
+0.1301944567 \\
+0.1301944567 + 0.065966665 + 0.0954770825 \\
+0.1301944567 + 0.065966665
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-7">iterasi ke 7</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-7-times-v-a-times-begin-pmatrix-0-3819062475-0-1301944567-0-2916382042-0-1961611217-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^7 \times v = A \times \begin{pmatrix}
+0.3819062475 \\
+0.1301944567 \\
+0.2916382042 \\
+0.1961611217
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2916382042-0-09808056085-0-1273020825-0-1273020825-0-06509722835-0-09808056085-0-1273020825-0-06509722835-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2916382042 + 0.09808056085 \\
+0.1273020825 \\
+0.1273020825 + 0.06509722835 + 0.09808056085 \\
+0.1273020825 + 0.06509722835
+\end{pmatrix}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterasi-ke-8">iterasi ke 8</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-8-times-v-a-times-begin-pmatrix-0-38971876505-0-1273020825-0-2904798717-0-19239931085-end-pmatrix">[
+<span class="math notranslate nohighlight">\(A^8 \times v = A \times \begin{pmatrix}
+0.38971876505 \\
+0.1273020825 \\
+0.2904798717 \\
+0.19239931085
+\end{pmatrix}\)</span></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">[</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-pmatrix-0-2904798717-0-096199655425-0-12990625501666667-0-12990625501666667-0-06365104125-0-096199655425-0-12990625501666667-0-06365104125-end-pmatrix"><span class="math notranslate nohighlight">\(\begin{pmatrix}
+0.2904798717 + 0.096199655425 \\
+0.12990625501666667 \\
+0.12990625501666667+ 0.06365104125 + 0.096199655425 \\
+0.12990625501666667 +0.06365104125
+\end{pmatrix}\)</span></a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
